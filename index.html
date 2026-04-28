@@ -89,6 +89,11 @@ en: {
   contactMessage:"Message", contactMessagePlaceholder:"Tell us more...",
   contactSend:"Send Message", contactSent:"Message sent!", contactSentDesc:"We'll get back to you within 48 hours.",
   contactSubjectBug:"Bug report", contactSubjectFeature:"Feature request", contactSubjectAccount:"Account issue", contactSubjectOther:"Other",
+  photo:"Photo", addPhoto:"Add a photo", tapToUpload:"Tap to upload from gallery", orTakePhoto:"or take a photo", changePhoto:"Change photo", removePhoto:"Remove", photoFromGallery:"Choose from gallery", photoFromCamera:"Take a photo",
+  exploreSneakers:"Sneakers", exploreUsers:"Users", searchSneakers:"Search sneakers...",
+  addToWishlist:"Add to wishlist", removeFromWishlist:"Remove from wishlist", addedToWishlist:"Added to wishlist!",
+  lowestPrice:"Lowest price", comparePrices:"Compare prices", wishlistEmpty:"Your wishlist is empty",
+  wishlistEmptyDesc:"Search sneakers and add them to track prices",
   explore:"Explore", searchUsers:"Search sneakerheads...", follow:"Follow", following:"Following",
   followers:"followers", followingCount:"following", dressing:"Dressing", save:"Save", saved:"Saved",
   viewDressing:"View Dressing", noUsersFound:"No users found", discoverDressings:"Discover other sneakerheads' collections",
@@ -159,6 +164,11 @@ fr: {
   contactMessage:"Message", contactMessagePlaceholder:"Dites-nous en plus...",
   contactSend:"Envoyer", contactSent:"Message envoyé !", contactSentDesc:"Nous vous répondrons sous 48 heures.",
   contactSubjectBug:"Signaler un bug", contactSubjectFeature:"Suggestion de fonctionnalité", contactSubjectAccount:"Problème de compte", contactSubjectOther:"Autre",
+  photo:"Photo", addPhoto:"Ajouter une photo", tapToUpload:"Appuyez pour importer depuis la galerie", orTakePhoto:"ou prendre une photo", changePhoto:"Changer la photo", removePhoto:"Supprimer", photoFromGallery:"Choisir depuis la galerie", photoFromCamera:"Prendre une photo",
+  exploreSneakers:"Sneakers", exploreUsers:"Utilisateurs", searchSneakers:"Rechercher des sneakers...",
+  addToWishlist:"Ajouter à la wishlist", removeFromWishlist:"Retirer de la wishlist", addedToWishlist:"Ajouté à la wishlist !",
+  lowestPrice:"Meilleur prix", comparePrices:"Comparer les prix", wishlistEmpty:"Votre wishlist est vide",
+  wishlistEmptyDesc:"Recherchez des sneakers et ajoutez-les pour suivre les prix",
   explore:"Explorer", searchUsers:"Rechercher des sneakerheads...", follow:"Suivre", following:"Suivi",
   followers:"abonnés", followingCount:"abonnements", dressing:"Dressing", save:"Sauvegarder", saved:"Sauvegardé",
   viewDressing:"Voir le Dressing", noUsersFound:"Aucun utilisateur trouvé", discoverDressings:"Découvrez les collections d'autres sneakerheads",
@@ -229,6 +239,11 @@ es: {
   contactMessage:"Mensaje", contactMessagePlaceholder:"Cuéntanos más...",
   contactSend:"Enviar mensaje", contactSent:"¡Mensaje enviado!", contactSentDesc:"Te responderemos en 48 horas.",
   contactSubjectBug:"Reportar un error", contactSubjectFeature:"Sugerencia", contactSubjectAccount:"Problema de cuenta", contactSubjectOther:"Otro",
+  photo:"Foto", addPhoto:"Añadir una foto", tapToUpload:"Toca para subir desde la galería", orTakePhoto:"o tomar una foto", changePhoto:"Cambiar foto", removePhoto:"Eliminar", photoFromGallery:"Elegir de la galería", photoFromCamera:"Tomar una foto",
+  exploreSneakers:"Sneakers", exploreUsers:"Usuarios", searchSneakers:"Buscar sneakers...",
+  addToWishlist:"Añadir a wishlist", removeFromWishlist:"Quitar de wishlist", addedToWishlist:"¡Añadido a la wishlist!",
+  lowestPrice:"Mejor precio", comparePrices:"Comparar precios", wishlistEmpty:"Tu wishlist está vacía",
+  wishlistEmptyDesc:"Busca sneakers y añádelas para seguir los precios",
   explore:"Explorar", searchUsers:"Buscar sneakerheads...", follow:"Seguir", following:"Siguiendo",
   followers:"seguidores", followingCount:"siguiendo", dressing:"Dressing", save:"Guardar", saved:"Guardado",
   viewDressing:"Ver Dressing", noUsersFound:"Ningún usuario encontrado", discoverDressings:"Descubre las colecciones de otros sneakerheads",
@@ -279,12 +294,16 @@ const WISHLIST = [
   { id:102, name:"Salomon XT-6", estimatedPrice:180, alert:false, affiliates:[{name:"StockX",price:175,url:"#"}] },
 ];
 const SNEAKER_DB = [
-  {id:"s1",name:"Air Jordan 1 Retro High OG",brand:"Nike",colorway:"Chicago",image:IMG.jordan1,retailPrice:170},
-  {id:"s3",name:"Nike Dunk Low",brand:"Nike",colorway:"Panda",image:IMG.dunkPanda,retailPrice:110},
-  {id:"s5",name:"New Balance 550",brand:"New Balance",colorway:"White Green",image:IMG.nb550,retailPrice:130},
-  {id:"s7",name:"Yeezy Boost 350 V2",brand:"Adidas",colorway:"Zebra",image:IMG.yeezy,retailPrice:220},
-  {id:"s9",name:"Air Force 1 '07",brand:"Nike",colorway:"Triple White",image:IMG.af1,retailPrice:100},
-  {id:"s10",name:"Asics Gel-Kayano 14",brand:"Asics",colorway:"Silver Pack",image:IMG.kayano,retailPrice:150},
+  {id:"s1",name:"Air Jordan 1 Retro High OG",brand:"Nike",colorway:"Chicago",image:IMG.jordan1,retailPrice:170,affiliates:[{name:"StockX",price:515,url:"#"},{name:"GOAT",price:530,url:"#"},{name:"Klekt",price:525,url:"#"}]},
+  {id:"s3",name:"Nike Dunk Low",brand:"Nike",colorway:"Panda",image:IMG.dunkPanda,retailPrice:110,affiliates:[{name:"StockX",price:130,url:"#"},{name:"Wethenew",price:138,url:"#"},{name:"eBay",price:125,url:"#"}]},
+  {id:"s5",name:"New Balance 550",brand:"New Balance",colorway:"White Green",image:IMG.nb550,retailPrice:130,affiliates:[{name:"StockX",price:140,url:"#"},{name:"GOAT",price:145,url:"#"}]},
+  {id:"s7",name:"Yeezy Boost 350 V2",brand:"Adidas",colorway:"Zebra",image:IMG.yeezy,retailPrice:220,affiliates:[{name:"GOAT",price:305,url:"#"},{name:"Klekt",price:315,url:"#"},{name:"StockX",price:310,url:"#"}]},
+  {id:"s9",name:"Air Force 1 '07",brand:"Nike",colorway:"Triple White",image:IMG.af1,retailPrice:100,affiliates:[{name:"StockX",price:98,url:"#"},{name:"eBay",price:95,url:"#"}]},
+  {id:"s10",name:"Asics Gel-Kayano 14",brand:"Asics",colorway:"Silver Pack",image:IMG.kayano,retailPrice:150,affiliates:[{name:"GOAT",price:190,url:"#"},{name:"StockX",price:185,url:"#"}]},
+  {id:"s11",name:"Salomon XT-6",brand:"Salomon",colorway:"Black Phantom",image:IMG.kayano,retailPrice:180,affiliates:[{name:"StockX",price:175,url:"#"},{name:"Wethenew",price:182,url:"#"}]},
+  {id:"s12",name:"Travis Scott x Jordan 1 Low",brand:"Nike",colorway:"Mocha",image:IMG.jordan1,retailPrice:150,affiliates:[{name:"StockX",price:845,url:"#"},{name:"GOAT",price:860,url:"#"},{name:"Klekt",price:855,url:"#"}]},
+  {id:"s13",name:"Nike Air Max 1",brand:"Nike",colorway:"Obsidian",image:IMG.af1,retailPrice:140,affiliates:[{name:"StockX",price:135,url:"#"},{name:"eBay",price:128,url:"#"}]},
+  {id:"s14",name:"Adidas Samba OG",brand:"Adidas",colorway:"White Black",image:IMG.nb550,retailPrice:100,affiliates:[{name:"StockX",price:110,url:"#"},{name:"Wethenew",price:115,url:"#"}]},
 ];
 
 const FREE_LIMIT = 5;
@@ -367,6 +386,59 @@ function Paywall({onClose,onSubscribe}){
   );
 }
 
+
+// ═══════════════════════════════════════════
+//  PHOTO UPLOAD COMPONENT
+// ═══════════════════════════════════════════
+function PhotoUp({image,onImageSet,compact}){
+  const{t}=useI18n();const fileRef=useRef(null);const camRef=useRef(null);
+  const handleFile=(e,source)=>{const f=e.target.files?.[0];if(!f)return;const reader=new FileReader();reader.onload=(ev)=>onImageSet(ev.target.result);reader.readAsDataURL(f);};
+  if(image) return(
+    <div style={{marginBottom:compact?12:20}}>
+      {!compact&&<div style={{fontSize:11,fontWeight:600,color:T.textSecondary,fontFamily:T.font,marginBottom:8}}>{t("photo")}</div>}
+      <div style={{position:"relative",borderRadius:compact?16:20,overflow:"hidden",border:`1px solid ${T.surfaceBorder}`}}>
+        <div style={{width:"100%",height:compact?140:180,background:"rgba(255,255,255,0.03)",display:"flex",alignItems:"center",justifyContent:"center"}}>
+          <img src={image} alt="" style={{maxWidth:"100%",maxHeight:"100%",objectFit:"contain",padding:"4%"}}/>
+        </div>
+        <div style={{position:"absolute",bottom:10,right:10,display:"flex",gap:6}}>
+          <div onClick={()=>fileRef.current?.click()} style={{padding:"6px 12px",borderRadius:10,background:"rgba(0,0,0,0.6)",backdropFilter:"blur(8px)",border:`1px solid ${T.surfaceBorder}`,cursor:"pointer",fontSize:10,fontWeight:600,color:T.text,fontFamily:T.font,display:"flex",alignItems:"center",gap:5}}>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg>
+            {t("changePhoto")}
+          </div>
+          <div onClick={()=>onImageSet(null)} style={{padding:"6px 10px",borderRadius:10,background:"rgba(255,122,122,0.15)",backdropFilter:"blur(8px)",border:"1px solid rgba(255,122,122,0.2)",cursor:"pointer",fontSize:10,fontWeight:600,color:T.negative,fontFamily:T.font}}>
+            {t("removePhoto")}
+          </div>
+        </div>
+      </div>
+      <input ref={fileRef} type="file" accept="image/*" style={{display:"none"}} onChange={e=>handleFile(e,"gallery")}/>
+    </div>
+  );
+  return(
+    <div style={{marginBottom:compact?12:20}}>
+      {!compact&&<div style={{fontSize:11,fontWeight:600,color:T.textSecondary,fontFamily:T.font,marginBottom:8}}>{t("photo")}</div>}
+      <div style={{borderRadius:compact?16:20,border:`2px dashed ${T.surfaceBorder}`,background:T.surface,padding:compact?"20px 16px":"28px 20px",textAlign:"center",cursor:"pointer"}} onClick={()=>fileRef.current?.click()}>
+        <svg width={compact?28:36} height={compact?28:36} viewBox="0 0 24 24" fill="none" stroke={T.textMuted} strokeWidth="1.5" strokeLinecap="round" style={{marginBottom:compact?8:12}}>
+          <path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/>
+        </svg>
+        <div style={{fontSize:13,fontWeight:600,color:T.textSecondary,fontFamily:T.font}}>{t("addPhoto")}</div>
+        <div style={{fontSize:11,color:T.textMuted,fontFamily:T.font,marginTop:4}}>{t("tapToUpload")}</div>
+        {/* Two action buttons */}
+        <div style={{display:"flex",gap:8,justifyContent:"center",marginTop:compact?12:16}}>
+          <div style={{padding:"8px 16px",borderRadius:12,background:T.accentSoft,border:"1px solid rgba(181,255,43,0.15)",fontSize:11,fontWeight:600,color:T.accent,fontFamily:T.font,display:"flex",alignItems:"center",gap:6}}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            {t("photoFromGallery")}
+          </div>
+          <div onClick={e=>{e.stopPropagation();camRef.current?.click();}} style={{padding:"8px 16px",borderRadius:12,background:T.surface,border:`1px solid ${T.surfaceBorder}`,fontSize:11,fontWeight:600,color:T.textSecondary,fontFamily:T.font,display:"flex",alignItems:"center",gap:6}}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg>
+            {t("photoFromCamera")}
+          </div>
+        </div>
+      </div>
+      <input ref={fileRef} type="file" accept="image/*" style={{display:"none"}} onChange={e=>handleFile(e,"gallery")}/>
+      <input ref={camRef} type="file" accept="image/*" capture="environment" style={{display:"none"}} onChange={e=>handleFile(e,"camera")}/>
+    </div>
+  );
+}
 
 // ═══════════════════════════════════════════
 //  GLOBAL HEADER (Gear + J avatar — all pages)
@@ -471,13 +543,22 @@ function CollectionTab({onNavigate}){
 function DetailOv({sneaker,onClose}){
   const{t}=useI18n();const{isPremium,showPaywall}=usePremium();
   const[show,sS]=useState(false);useEffect(()=>{requestAnimationFrame(()=>sS(true));},[]);
+  const[customImg,sCustomImg]=useState(null);const editPhotoRef=useRef(null);
   const g=sneaker.currentValue-sneaker.pricePaid;const gP=((g/sneaker.pricePaid)*100).toFixed(1);const cpw=Math.round(sneaker.pricePaid/Math.max(sneaker.wearCount,1));
   const close=()=>{sS(false);setTimeout(onClose,300);};
+  const displayImg=customImg||sneaker.image;
   return(
     <div style={{position:"fixed",inset:0,zIndex:200,background:show?"rgba(0,0,0,0.75)":"rgba(0,0,0,0)",backdropFilter:show?"blur(12px)":"blur(0)",transition:"all 0.3s ease"}} onClick={close}>
       <div onClick={e=>e.stopPropagation()} style={{height:"100%",maxWidth:430,margin:"0 auto",background:T.bg,transform:show?"translateY(0)":"translateY(100%)",opacity:show?1:0,transition:"all 0.4s cubic-bezier(0.22,1,0.36,1)",overflowY:"auto"}}>
         <div style={{position:"sticky",top:0,zIndex:10,padding:"16px 20px",display:"flex",justifyContent:"space-between",background:"linear-gradient(180deg,rgba(8,8,12,0.95) 0%,transparent 100%)"}}><button onClick={close} style={{width:38,height:38,borderRadius:"50%",border:`1px solid ${T.surfaceBorder}`,background:T.surface,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}}><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" strokeWidth="2" strokeLinecap="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg></button><div style={{width:38,height:38,borderRadius:"50%",border:`1px solid ${T.surfaceBorder}`,background:T.surface,display:"flex",alignItems:"center",justifyContent:"center",color:sneaker.isFavorite?T.accent:T.textMuted,fontSize:16}}>♥</div></div>
-        <div style={{padding:"0 20px"}}><SI src={sneaker.image} alt={sneaker.name} style={{width:"100%",height:230,borderRadius:24}}/></div>
+        <div style={{padding:"0 20px",position:"relative"}}>
+          <SI src={displayImg} alt={sneaker.name} style={{width:"100%",height:230,borderRadius:24}}/>
+          <div onClick={()=>editPhotoRef.current?.click()} style={{position:"absolute",bottom:12,right:32,padding:"8px 14px",borderRadius:12,background:"rgba(0,0,0,0.6)",backdropFilter:"blur(8px)",border:`1px solid ${T.surfaceBorder}`,cursor:"pointer",display:"flex",alignItems:"center",gap:6,fontSize:11,fontWeight:600,color:T.text,fontFamily:T.font}}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg>
+            {t("changePhoto")}
+          </div>
+          <input ref={editPhotoRef} type="file" accept="image/*" style={{display:"none"}} onChange={e=>{const f=e.target.files?.[0];if(!f)return;const r=new FileReader();r.onload=ev=>sCustomImg(ev.target.result);r.readAsDataURL(f);}}/>
+        </div>
         <div style={{padding:"24px 22px 40px"}}>
           <div style={{fontSize:24,fontWeight:800,color:T.text,fontFamily:T.fontDisplay,letterSpacing:-0.5,lineHeight:1.2}}>{sneaker.name}</div>
           <div style={{fontSize:13,color:T.textSecondary,fontFamily:T.font,marginTop:5}}>{sneaker.colorway} · {sneaker.brand} · {sneaker.size}</div>
@@ -510,7 +591,7 @@ function AddTab({onNavigate}){
   const handleSel=s=>{if(atLimit){showPaywall();return;}sFData({name:s.name,brand:s.brand,colorway:s.colorway,image:s.image,pricePaid:String(s.retailPrice)});sStep("form");};
   const reset=()=>{sFData({});sSub(null);sStep("search");sQ("");};
   const[form,sForm]=useState({});
-  useEffect(()=>{sForm({name:"",brand:"",colorway:"",size:"US 10",pricePaid:"",currentValue:"",purchaseDate:"",condition:"Deadstock (DS)",mood:"",notes:"",...fData});},[fData]);
+  useEffect(()=>{sForm({name:"",brand:"",colorway:"",size:"US 10",pricePaid:"",currentValue:"",purchaseDate:"",condition:"Deadstock (DS)",mood:"",notes:"",customImage:null,...fData});},[fData]);
   const upd=(k,val)=>sForm(f=>({...f,[k]:val}));
   const filled=form.name&&form.brand&&form.size&&form.pricePaid;
   return(<div style={{position:"relative"}}>
@@ -527,6 +608,7 @@ function AddTab({onNavigate}){
         {!atLimit&&<div onClick={()=>{sFData({});sStep("form");}} style={{padding:"14px 0",borderRadius:16,textAlign:"center",cursor:"pointer",background:T.surface,border:`1px solid ${T.surfaceBorder}`,fontSize:13,fontWeight:600,color:T.textSecondary,fontFamily:T.font,marginBottom:120}}>+ {t("addManually")}</div>}
       </div>}
       {step==="form"&&<div>
+        <PhotoUp image={form.customImage||form.image||null} onImageSet={img=>upd("customImage",img)}/>
         <SL>{t("sneakerDetails")}</SL>
         <IF label={`${t("name")} *`} value={form.name} onChange={v=>upd("name",v)} placeholder="e.g. Air Jordan 1 Retro High OG"/>
         <CS label={`${t("brand")} *`} options={BRANDS_LIST} value={form.brand} onChange={v=>upd("brand",v)}/>
@@ -800,15 +882,20 @@ const MOCK_USERS = [
 
 function ExploreTab({onNavigate}){
   const{t}=useI18n();
-  const[v,sV]=useState(false);const[query,sQ]=useState("");const[followedIds,sFollowed]=useState(["u2"]);const[savedPairs,sSaved]=useState([]);const[viewUser,sViewUser]=useState(null);const[showSaved,sShowSaved]=useState(false);
+  const[v,sV]=useState(false);const[exploreMode,sEM]=useState("sneakers");const[query,sQ]=useState("");
+  const[followedIds,sFollowed]=useState(["u2"]);const[savedPairs,sSaved]=useState([]);const[viewUser,sViewUser]=useState(null);const[showSaved,sShowSaved]=useState(false);
+  const[wishlist,sWishlist]=useState(WISHLIST.map(w=>w.id));const[addedFeedback,sAddedFeedback]=useState(null);
   useEffect(()=>{const t2=setTimeout(()=>sV(true),80);return()=>clearTimeout(t2);},[]);
 
-  const results=query.length>=1?MOCK_USERS.filter(u=>u.username.toLowerCase().includes(query.toLowerCase())||u.displayName.toLowerCase().includes(query.toLowerCase())):MOCK_USERS;
+  const userResults=query.length>=1?MOCK_USERS.filter(u=>u.username.toLowerCase().includes(query.toLowerCase())||u.displayName.toLowerCase().includes(query.toLowerCase())):MOCK_USERS;
+  const sneakerResults=query.length>=2?SNEAKER_DB.filter(s=>s.name.toLowerCase().includes(query.toLowerCase())||s.colorway.toLowerCase().includes(query.toLowerCase())||s.brand.toLowerCase().includes(query.toLowerCase())):SNEAKER_DB;
   const toggleFollow=id=>sFollowed(f=>f.includes(id)?f.filter(x=>x!==id):[...f,id]);
   const toggleSave=pair=>sSaved(s=>s.find(p=>p.id===pair.id)?s.filter(p=>p.id!==pair.id):[...s,pair]);
   const isSaved=id=>savedPairs.some(p=>p.id===id);
+  const isInWishlist=id=>wishlist.includes(id);
+  const toggleWishlist=id=>{if(wishlist.includes(id)){sWishlist(w=>w.filter(x=>x!==id));}else{sWishlist(w=>[...w,id]);sAddedFeedback(id);setTimeout(()=>sAddedFeedback(null),1500);}};
+  const getLowest=affiliates=>{if(!affiliates||!affiliates.length)return null;return affiliates.reduce((min,a)=>a.price<min.price?a:min,affiliates[0]);};
 
-  // User profile overlay
   if(viewUser) return(
     <UserProfile user={viewUser} onBack={()=>sViewUser(null)} isFollowed={followedIds.includes(viewUser.id)} onToggleFollow={()=>toggleFollow(viewUser.id)} savedPairs={savedPairs} onToggleSave={toggleSave} isSaved={isSaved}/>
   );
@@ -816,7 +903,7 @@ function ExploreTab({onNavigate}){
   return(<div style={{position:"relative"}}>
     <GH onNavigate={onNavigate}/>
     <FI visible={v} delay={0}><div style={{padding:"52px 22px 0"}}>
-      <div style={{marginBottom:20}}>
+      <div style={{marginBottom:16}}>
         <div style={{display:"flex",alignItems:"center",gap:10}}>
           <div style={{fontSize:28,fontWeight:800,color:T.text,fontFamily:T.fontDisplay,letterSpacing:-0.8}}>{t("explore")}</div>
           <div onClick={()=>sShowSaved(!showSaved)} style={{width:34,height:34,borderRadius:"50%",border:`1px solid ${savedPairs.length>0?T.proBorder:T.surfaceBorder}`,background:savedPairs.length>0?T.proSoft:T.surface,display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",position:"relative"}}>
@@ -824,16 +911,25 @@ function ExploreTab({onNavigate}){
             {savedPairs.length>0&&<div style={{position:"absolute",top:-2,right:-2,width:14,height:14,borderRadius:"50%",background:T.pro,color:T.bg,fontSize:8,fontWeight:700,display:"flex",alignItems:"center",justifyContent:"center"}}>{savedPairs.length}</div>}
           </div>
         </div>
-        <div style={{fontSize:12,color:T.textMuted,fontFamily:T.font,marginTop:3}}>{t("discoverDressings")}</div>
+      </div>
+
+      {/* Sneakers / Users toggle */}
+      <div style={{display:"flex",gap:2,background:"rgba(255,255,255,0.03)",borderRadius:14,padding:3,marginBottom:16,border:`1px solid ${T.surfaceBorder}`}}>
+        {[{id:"sneakers",label:t("exploreSneakers"),icon:'<path d="M2 18h20v1a2 2 0 01-2 2H4a2 2 0 01-2-2v-1z"/><path d="M2 18l1-7a2 2 0 012-2h2l1.5 2.5a1 1 0 00.86.5H12l3-3h3a2 2 0 012 2l1 7"/>'},{id:"users",label:t("exploreUsers"),icon:'<path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>'}].map(tab=>(
+          <button key={tab.id} onClick={()=>{sEM(tab.id);sQ("");}} style={{flex:1,padding:"10px 0",borderRadius:12,border:"none",cursor:"pointer",background:exploreMode===tab.id?T.accentSoft:"transparent",color:exploreMode===tab.id?T.accent:T.textMuted,fontSize:12,fontWeight:600,fontFamily:T.font,transition:"all 0.2s ease",display:"flex",alignItems:"center",justifyContent:"center",gap:6}}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" dangerouslySetInnerHTML={{__html:tab.icon}}/>
+            {tab.label}
+          </button>
+        ))}
       </div>
     </div></FI>
 
     <div style={{padding:"0 22px"}}>
-      {/* Search */}
+      {/* Search bar */}
       <FI visible={v} delay={0.08}>
         <div style={{position:"relative",marginBottom:20}}>
           <svg style={{position:"absolute",left:14,top:"50%",transform:"translateY(-50%)",opacity:0.3}} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input type="text" placeholder={t("searchUsers")} value={query} onChange={e=>sQ(e.target.value)} style={{width:"100%",boxSizing:"border-box",padding:"13px 16px 13px 42px",background:T.surface,border:`1px solid ${T.surfaceBorder}`,borderRadius:16,color:T.text,fontSize:13,fontFamily:T.font,outline:"none"}}/>
+          <input type="text" placeholder={exploreMode==="sneakers"?t("searchSneakers"):t("searchUsers")} value={query} onChange={e=>sQ(e.target.value)} style={{width:"100%",boxSizing:"border-box",padding:"13px 16px 13px 42px",background:T.surface,border:`1px solid ${T.surfaceBorder}`,borderRadius:16,color:T.text,fontSize:13,fontFamily:T.font,outline:"none"}}/>
         </div>
       </FI>
 
@@ -852,17 +948,59 @@ function ExploreTab({onNavigate}){
         </G>
       </FI>}
 
-      {/* Users list */}
-      <FI visible={v} delay={0.16}>
+      {/* ═══ SNEAKERS TAB ═══ */}
+      {exploreMode==="sneakers"&&<FI visible={v} delay={0.12}>
         <div style={{display:"flex",flexDirection:"column",gap:10,paddingBottom:120}}>
-          {results.map(u=>{
+          {sneakerResults.map(s=>{
+            const lowest=getLowest(s.affiliates);const inWL=isInWishlist(s.id);const justAdded=addedFeedback===s.id;
+            return(
+              <G key={s.id} style={{padding:"16px 18px"}}>
+                <div style={{display:"flex",gap:14,alignItems:"center"}}>
+                  <Th src={s.image} size={56}/>
+                  <div style={{flex:1,minWidth:0}}>
+                    <div style={{fontSize:14,fontWeight:700,color:T.text,fontFamily:T.font,lineHeight:1.3}}>{s.name}</div>
+                    <div style={{fontSize:11,color:T.textMuted,fontFamily:T.font,marginTop:2}}>{s.colorway} · {s.brand}</div>
+                    {lowest&&<div style={{display:"flex",alignItems:"center",gap:6,marginTop:6}}>
+                      <div style={{fontSize:13,fontWeight:700,color:T.accent,fontFamily:T.font}}>{fmt(lowest.price)}</div>
+                      <div style={{fontSize:9,color:T.textMuted,fontFamily:T.font}}>on {lowest.name}</div>
+                    </div>}
+                  </div>
+                  {/* Wishlist button */}
+                  <button onClick={()=>toggleWishlist(s.id)} style={{padding:"8px 12px",borderRadius:12,border:inWL?`1px solid rgba(255,122,122,0.2)`:`1px solid rgba(181,255,43,0.3)`,background:inWL?"rgba(255,122,122,0.06)":justAdded?T.accentSoft:T.surface,cursor:"pointer",transition:"all 0.2s ease",display:"flex",alignItems:"center",gap:5,flexShrink:0}}>
+                    {justAdded?<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={T.accent} strokeWidth="2.5" strokeLinecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    :inWL?<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={T.negative} strokeWidth="1.8" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    :<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={T.accent} strokeWidth="1.8" strokeLinecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l7.78-7.78a5.5 5.5 0 000-7.78z"/></svg>}
+                    <span style={{fontSize:10,fontWeight:600,color:justAdded?T.accent:inWL?T.negative:T.textSecondary,fontFamily:T.font}}>{justAdded?"Added!":inWL?"Remove":"Wish"}</span>
+                  </button>
+                </div>
+                {/* Affiliate price comparison */}
+                {s.affiliates&&s.affiliates.length>0&&<div style={{display:"flex",gap:6,marginTop:12,flexWrap:"wrap"}}>
+                  {s.affiliates.map((a,i)=>(
+                    <a key={i} href={a.url} target="_blank" rel="noopener noreferrer" style={{display:"flex",alignItems:"center",gap:6,padding:"7px 12px",borderRadius:10,background:a===lowest?"rgba(181,255,43,0.06)":T.surface,border:`1px solid ${a===lowest?"rgba(181,255,43,0.15)":T.surfaceBorder}`,textDecoration:"none",fontSize:11,fontFamily:T.font,transition:"all 0.2s ease"}}>
+                      <span style={{fontWeight:600,color:a===lowest?T.accent:T.textSecondary}}>{a.name}</span>
+                      <span style={{fontWeight:700,color:a===lowest?T.accent:T.text}}>{fmt(a.price)}</span>
+                      {a===lowest&&<span style={{fontSize:8,fontWeight:700,color:T.bg,background:T.accent,borderRadius:4,padding:"1px 4px"}}>LOW</span>}
+                    </a>
+                  ))}
+                </div>}
+              </G>
+            );
+          })}
+          {query.length>=2&&sneakerResults.length===0&&<div style={{textAlign:"center",padding:"40px 20px"}}><div style={{fontSize:14,color:T.textMuted,fontFamily:T.font}}>{t("noResults")}</div></div>}
+        </div>
+      </FI>}
+
+      {/* ═══ USERS TAB ═══ */}
+      {exploreMode==="users"&&<FI visible={v} delay={0.12}>
+        <div style={{display:"flex",flexDirection:"column",gap:10,paddingBottom:120}}>
+          {userResults.map(u=>{
             const isF=followedIds.includes(u.id);
             return(
               <G key={u.id} style={{padding:"16px 18px",cursor:"pointer"}} onClick={()=>sViewUser(u)}>
                 <div style={{display:"flex",alignItems:"center",gap:14}}>
                   <div style={{width:48,height:48,borderRadius:"50%",background:`linear-gradient(135deg,${u.avatarColor}22 0%,${u.avatarColor}08 100%)`,border:`2px solid ${u.avatarColor}33`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:18,fontWeight:800,color:u.avatarColor,fontFamily:T.fontDisplay,flexShrink:0}}>{u.avatar}</div>
                   <div style={{flex:1,minWidth:0}}>
-                    <div style={{display:"flex",alignItems:"center",gap:6}}><div style={{fontSize:14,fontWeight:700,color:T.text,fontFamily:T.font}}>{u.displayName}</div></div>
+                    <div style={{fontSize:14,fontWeight:700,color:T.text,fontFamily:T.font}}>{u.displayName}</div>
                     <div style={{fontSize:11,color:T.textMuted,fontFamily:T.font,marginTop:1}}>@{u.username}</div>
                     <div style={{fontSize:11,color:T.textSecondary,fontFamily:T.font,marginTop:4}}>{u.collection.length} {t("pairs")} · {u.followersCount.toLocaleString()} {t("followers")}</div>
                   </div>
@@ -870,7 +1008,6 @@ function ExploreTab({onNavigate}){
                     {isF?t("following"):t("follow")}
                   </button>
                 </div>
-                {/* Mini collection preview */}
                 <div className="hide-sb" style={{display:"flex",gap:6,marginTop:12,overflowX:"auto"}}>
                   {u.collection.slice(0,4).map(p=>(
                     <div key={p.id} style={{width:56,height:56,borderRadius:12,background:"rgba(255,255,255,0.03)",border:`1px solid ${T.surfaceBorder}`,overflow:"hidden",flexShrink:0}}>
@@ -882,9 +1019,9 @@ function ExploreTab({onNavigate}){
               </G>
             );
           })}
-          {results.length===0&&<div style={{textAlign:"center",padding:"40px 20px"}}><div style={{fontSize:14,color:T.textMuted,fontFamily:T.font}}>{t("noUsersFound")}</div></div>}
+          {userResults.length===0&&<div style={{textAlign:"center",padding:"40px 20px"}}><div style={{fontSize:14,color:T.textMuted,fontFamily:T.font}}>{t("noUsersFound")}</div></div>}
         </div>
-      </FI>
+      </FI>}
     </div>
   </div>);
 }
