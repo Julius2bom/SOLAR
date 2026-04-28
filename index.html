@@ -861,13 +861,97 @@ function BNav({active,setActive}){
   </div>);
 }
 
+// ═══════════════════════════════════════════
+//  SPLASH SCREEN
+// ═══════════════════════════════════════════
+function SplashScreen({onDone}){
+  const[phase,sPhase]=useState(0);
+  // phase 0: black screen (0-300ms)
+  // phase 1: S fades in centered, full green (300-1000ms)
+  // phase 2: horizon line appears, split effect (1000-1800ms)
+  // phase 3: SOLAR text appears below (1800-2200ms)
+  // phase 4: loading bar fills (2200-2800ms)
+  // phase 5: fade out (2800-3200ms)
+  useEffect(()=>{
+    const timers=[
+      setTimeout(()=>sPhase(1),300),
+      setTimeout(()=>sPhase(2),1000),
+      setTimeout(()=>sPhase(3),1800),
+      setTimeout(()=>sPhase(4),2200),
+      setTimeout(()=>sPhase(5),2800),
+      setTimeout(()=>onDone(),3200),
+    ];
+    return()=>timers.forEach(clearTimeout);
+  },[]);
+  return(
+    <div style={{position:"fixed",inset:0,zIndex:9999,background:T.bg,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",opacity:phase>=5?0:1,transition:"opacity 0.4s ease"}}>
+      <style>{`
+@keyframes splashGlow{0%{opacity:0;transform:scale(0.8)}100%{opacity:1;transform:scale(1)}}
+@keyframes horizonReveal{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
+@keyframes textUp{0%{opacity:0;transform:translateY(16px)}100%{opacity:1;transform:translateY(0)}}
+@keyframes barFill{0%{width:0}100%{width:100%}}
+      `}</style>
+
+      {/* Ambient glow */}
+      <div style={{position:"absolute",width:200,height:200,borderRadius:"50%",background:"radial-gradient(circle,rgba(181,255,43,0.06) 0%,transparent 70%)",opacity:phase>=1?1:0,transition:"opacity 0.8s ease"}}/>
+
+      {/* Icon container */}
+      <div style={{width:120,height:120,borderRadius:28,overflow:"hidden",position:"relative",opacity:phase>=1?1:0,animation:phase>=1?"splashGlow 0.7s cubic-bezier(0.22,1,0.36,1)":"none"}}>
+        {/* Top half — starts black, becomes green at phase 2 */}
+        <div style={{position:"absolute",top:0,left:0,width:120,height:60,background:phase>=2?T.accent:T.bg,transition:"background 0.8s cubic-bezier(0.22,1,0.36,1)"}}/>
+        {/* Bottom half — always black */}
+        <div style={{position:"absolute",top:60,left:0,width:120,height:60,background:T.bg}}/>
+        {/* S black (visible on green) */}
+        <div style={{position:"absolute",inset:0,display:"flex",alignItems:"center",justifyContent:"center"}}>
+          <svg width="120" height="120" viewBox="0 0 120 120">
+            <clipPath id="splashTop"><rect x="0" y="0" width="120" height="60"/></clipPath>
+            <clipPath id="splashBottom"><rect x="0" y="60" width="120" height="60"/></clipPath>
+            <g clipPath="url(#splashTop)">
+              <text x="60" y="95" textAnchor="middle" fontFamily="'Outfit', sans-serif" fontSize="115" fontWeight="900" fill={phase>=2?T.bg:T.accent} style={{transition:"fill 0.8s cubic-bezier(0.22,1,0.36,1)"}}>S</text>
+            </g>
+            <g clipPath="url(#splashBottom)">
+              <text x="60" y="95" textAnchor="middle" fontFamily="'Outfit', sans-serif" fontSize="115" fontWeight="900" fill={T.accent}>S</text>
+            </g>
+          </svg>
+        </div>
+
+        {/* Horizon line */}
+        <div style={{position:"absolute",top:59,left:0,width:120,height:2,background:T.bg,transform:phase>=2?"scaleX(1)":"scaleX(0)",transition:"transform 0.6s cubic-bezier(0.22,1,0.36,1)",transformOrigin:"center"}}/>
+      </div>
+
+      {/* SOLAR text */}
+      <div style={{marginTop:24,opacity:phase>=3?1:0,transform:phase>=3?"translateY(0)":"translateY(16px)",transition:"all 0.5s cubic-bezier(0.22,1,0.36,1)"}}>
+        <div style={{fontSize:24,fontWeight:800,color:T.text,fontFamily:T.fontDisplay,letterSpacing:6,textAlign:"center"}}>SOLAR</div>
+        <div style={{fontSize:11,color:T.textMuted,fontFamily:T.font,textAlign:"center",marginTop:6,letterSpacing:2}}>Your private sneaker universe</div>
+      </div>
+
+      {/* Loading bar */}
+      <div style={{position:"absolute",bottom:80,width:160,height:2,borderRadius:1,background:"rgba(255,255,255,0.06)",overflow:"hidden",opacity:phase>=3?1:0,transition:"opacity 0.3s ease"}}>
+        <div style={{height:"100%",borderRadius:1,background:T.accent,width:phase>=4?"100%":"0%",transition:"width 0.6s cubic-bezier(0.22,1,0.36,1)"}}/>
+      </div>
+
+      {/* Publisher */}
+      <div style={{position:"absolute",bottom:40,fontSize:10,color:T.textMuted,fontFamily:T.font,letterSpacing:1,opacity:phase>=3?0.5:0,transition:"opacity 0.5s ease"}}>[12:12]</div>
+    </div>
+  );
+}
+
 function SoularApp(){
   const[activeTab,sAT]=useState("home");
   const[isPremium,sIP]=useState(false);
   const[showPW,sSPW]=useState(false);
   const[lang,sLang]=useState(()=>detectLang());
+  const[splashDone,sSplash]=useState(false);
 
   const t=(key,params={})=>{let str=TR[lang]?.[key]||TR.en[key]||key;Object.entries(params).forEach(([k,v])=>{str=str.replace(`{${k}}`,v);});return str;};
+
+  if(!splashDone) return(
+    <div>
+      <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+      <style>{`html,body{margin:0;padding:0;background:#08080c;overflow:hidden}#root{height:100vh;height:100dvh}`}</style>
+      <SplashScreen onDone={()=>sSplash(true)}/>
+    </div>
+  );
 
   return(
     <I18nCtx.Provider value={{lang,setLang:sLang,t}}>
