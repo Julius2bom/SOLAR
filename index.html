@@ -85,6 +85,10 @@ en: {
   deleteConfirmTitle:"Delete your account?", deleteConfirmText:"This action is permanent and cannot be undone. All your collection data, wear history, and preferences will be permanently deleted within 30 days.",
   deleteConfirmButton:"Yes, delete my account", deleteCancel:"Cancel, keep my account",
   faq:"FAQ & Help", faqDesc:"Frequently asked questions", contactUs:"Contact Us", contactUsDesc:"Get in touch with our team",
+  contactTitle:"Contact Us", contactSubject:"Subject", contactSubjectPlaceholder:"What's this about?",
+  contactMessage:"Message", contactMessagePlaceholder:"Tell us more...",
+  contactSend:"Send Message", contactSent:"Message sent!", contactSentDesc:"We'll get back to you within 48 hours.",
+  contactSubjectBug:"Bug report", contactSubjectFeature:"Feature request", contactSubjectAccount:"Account issue", contactSubjectOther:"Other",
   explore:"Explore", searchUsers:"Search sneakerheads...", follow:"Follow", following:"Following",
   followers:"followers", followingCount:"following", dressing:"Dressing", save:"Save", saved:"Saved",
   viewDressing:"View Dressing", noUsersFound:"No users found", discoverDressings:"Discover other sneakerheads' collections",
@@ -151,6 +155,10 @@ fr: {
   deleteConfirmTitle:"Supprimer votre compte ?", deleteConfirmText:"Cette action est irréversible. Toutes vos données de collection, historique de ports et préférences seront définitivement supprimées sous 30 jours.",
   deleteConfirmButton:"Oui, supprimer mon compte", deleteCancel:"Annuler, garder mon compte",
   faq:"FAQ & Aide", faqDesc:"Questions fréquemment posées", contactUs:"Nous contacter", contactUsDesc:"Contactez notre équipe",
+  contactTitle:"Nous contacter", contactSubject:"Sujet", contactSubjectPlaceholder:"De quoi s'agit-il ?",
+  contactMessage:"Message", contactMessagePlaceholder:"Dites-nous en plus...",
+  contactSend:"Envoyer", contactSent:"Message envoyé !", contactSentDesc:"Nous vous répondrons sous 48 heures.",
+  contactSubjectBug:"Signaler un bug", contactSubjectFeature:"Suggestion de fonctionnalité", contactSubjectAccount:"Problème de compte", contactSubjectOther:"Autre",
   explore:"Explorer", searchUsers:"Rechercher des sneakerheads...", follow:"Suivre", following:"Suivi",
   followers:"abonnés", followingCount:"abonnements", dressing:"Dressing", save:"Sauvegarder", saved:"Sauvegardé",
   viewDressing:"Voir le Dressing", noUsersFound:"Aucun utilisateur trouvé", discoverDressings:"Découvrez les collections d'autres sneakerheads",
@@ -217,6 +225,10 @@ es: {
   deleteConfirmTitle:"¿Eliminar tu cuenta?", deleteConfirmText:"Esta acción es permanente e irreversible. Todos tus datos de colección, historial de uso y preferencias se eliminarán permanentemente en 30 días.",
   deleteConfirmButton:"Sí, eliminar mi cuenta", deleteCancel:"Cancelar, mantener mi cuenta",
   faq:"FAQ y Ayuda", faqDesc:"Preguntas frecuentes", contactUs:"Contáctanos", contactUsDesc:"Ponte en contacto con nuestro equipo",
+  contactTitle:"Contáctanos", contactSubject:"Asunto", contactSubjectPlaceholder:"¿De qué se trata?",
+  contactMessage:"Mensaje", contactMessagePlaceholder:"Cuéntanos más...",
+  contactSend:"Enviar mensaje", contactSent:"¡Mensaje enviado!", contactSentDesc:"Te responderemos en 48 horas.",
+  contactSubjectBug:"Reportar un error", contactSubjectFeature:"Sugerencia", contactSubjectAccount:"Problema de cuenta", contactSubjectOther:"Otro",
   explore:"Explorar", searchUsers:"Buscar sneakerheads...", follow:"Seguir", following:"Siguiendo",
   followers:"seguidores", followingCount:"siguiendo", dressing:"Dressing", save:"Guardar", saved:"Guardado",
   viewDressing:"Ver Dressing", noUsersFound:"Ningún usuario encontrado", discoverDressings:"Descubre las colecciones de otros sneakerheads",
@@ -628,7 +640,7 @@ function InsightsTab({onNavigate}){
 // ═══════════════════════════════════════════
 function ProfileTab(){
   const{t,lang,setLang}=useI18n();const{isPremium,showPaywall,togglePremium}=usePremium();
-  const[v,sV]=useState(false);const[notifs,sN]=useState({price:true,wear:true,wishlist:true});const[currency,sCur]=useState("eur");const[sizeUnit,sSU]=useState("us");const[showDel,sShowDel]=useState(false);
+  const[v,sV]=useState(false);const[notifs,sN]=useState({price:true,wear:true,wishlist:true});const[currency,sCur]=useState("eur");const[sizeUnit,sSU]=useState("us");const[showDel,sShowDel]=useState(false);const[showContact,sShowContact]=useState(false);const[contactSent,sContactSent]=useState(false);const[contactSubject,sContactSubject]=useState("");const[contactMsg,sContactMsg]=useState("");
   useEffect(()=>{const t2=setTimeout(()=>sV(true),80);return()=>clearTimeout(t2);},[]);
   return(<div>
     <FI visible={v} delay={0}><div style={{padding:"52px 22px 0"}}><div style={{fontSize:28,fontWeight:800,color:T.text,fontFamily:T.fontDisplay,letterSpacing:-0.8,marginBottom:24}}>{t("profile")}</div></div></FI>
@@ -685,7 +697,7 @@ function ProfileTab(){
         <SL>Support</SL>
         <G style={{padding:"4px 18px",marginBottom:28}}>
           <SR icon={<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" strokeWidth="1.8" strokeLinecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>} label={t("faq")} subtitle={t("faqDesc")} onClick={()=>{}}/>
-          <SR icon={<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" strokeWidth="1.8" strokeLinecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22 6 12 13 2 6"/></svg>} label={t("contactUs")} subtitle={t("contactUsDesc")} onClick={()=>{}}/>
+          <SR icon={<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" strokeWidth="1.8" strokeLinecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22 6 12 13 2 6"/></svg>} label={t("contactUs")} subtitle={t("contactUsDesc")} onClick={()=>sShowContact(true)}/>
         </G>
 
         <G style={{padding:"4px 18px",marginBottom:28,border:"1px dashed rgba(255,255,255,0.1)"}}>
@@ -705,6 +717,41 @@ function ProfileTab(){
           <div style={{fontSize:13,color:T.textSecondary,fontFamily:T.font,marginTop:12,lineHeight:1.6}}>{t("deleteConfirmText")}</div>
           <button onClick={()=>sShowDel(false)} style={{width:"100%",padding:"14px 0",borderRadius:14,border:"none",cursor:"pointer",background:T.negative,color:"#fff",fontSize:14,fontWeight:700,fontFamily:T.font,marginTop:24}}>{t("deleteConfirmButton")}</button>
           <button onClick={()=>sShowDel(false)} style={{width:"100%",padding:"14px 0",borderRadius:14,border:`1px solid ${T.surfaceBorder}`,cursor:"pointer",background:"transparent",color:T.textSecondary,fontSize:14,fontWeight:600,fontFamily:T.font,marginTop:10}}>{t("deleteCancel")}</button>
+        </div>
+      </div>}
+
+      {/* Contact Form Modal */}
+      {showContact&&<div style={{position:"fixed",inset:0,zIndex:300,background:"rgba(0,0,0,0.7)",backdropFilter:"blur(12px)",display:"flex",alignItems:"center",justifyContent:"center",padding:28}} onClick={()=>{sShowContact(false);sContactSent(false);sContactSubject("");sContactMsg("");}}>
+        <div onClick={e=>e.stopPropagation()} style={{background:T.bg,borderRadius:24,border:`1px solid ${T.surfaceBorder}`,padding:"28px 24px",maxWidth:380,width:"100%"}}>
+          {!contactSent?(<div>
+            <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:20}}>
+              <div style={{fontSize:20,fontWeight:800,color:T.text,fontFamily:T.fontDisplay}}>{t("contactTitle")}</div>
+              <div onClick={()=>{sShowContact(false);sContactSubject("");sContactMsg("");}} style={{width:32,height:32,borderRadius:"50%",background:T.surface,border:`1px solid ${T.surfaceBorder}`,display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer"}}>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="2" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </div>
+            </div>
+            <div style={{fontSize:11,fontWeight:600,color:T.textSecondary,fontFamily:T.font,marginBottom:8}}>{t("contactSubject")}</div>
+            <div style={{display:"flex",flexWrap:"wrap",gap:6,marginBottom:18}}>
+              {["contactSubjectBug","contactSubjectFeature","contactSubjectAccount","contactSubjectOther"].map(k=>{
+                const label=t(k);const active=contactSubject===label;
+                return(<div key={k} onClick={()=>sContactSubject(label)} style={{padding:"8px 14px",borderRadius:12,fontSize:12,fontWeight:600,fontFamily:T.font,cursor:"pointer",transition:"all 0.2s ease",background:active?T.accentSoft:T.surface,border:`1px solid ${active?"rgba(181,255,43,0.25)":T.surfaceBorder}`,color:active?T.accent:T.textSecondary}}>{label}</div>);
+              })}
+            </div>
+            <div style={{fontSize:11,fontWeight:600,color:T.textSecondary,fontFamily:T.font,marginBottom:6}}>{t("contactMessage")}</div>
+            <textarea value={contactMsg} onChange={e=>sContactMsg(e.target.value)} placeholder={t("contactMessagePlaceholder")} rows={4}
+              style={{width:"100%",boxSizing:"border-box",padding:"13px 14px",background:T.surface,border:`1px solid ${T.surfaceBorder}`,borderRadius:14,color:T.text,fontSize:13,fontFamily:T.font,outline:"none",resize:"vertical",lineHeight:1.5,marginBottom:20}}
+              onFocus={e=>e.target.style.borderColor="rgba(181,255,43,0.2)"} onBlur={e=>e.target.style.borderColor=T.surfaceBorder}/>
+            <button onClick={()=>{if(contactSubject&&contactMsg)sContactSent(true);}} style={{width:"100%",padding:"14px 0",borderRadius:14,border:"none",cursor:contactSubject&&contactMsg?"pointer":"not-allowed",background:contactSubject&&contactMsg?`linear-gradient(135deg,${T.accent} 0%,${T.accentAlt} 100%)`:"rgba(255,255,255,0.06)",color:contactSubject&&contactMsg?T.bg:T.textMuted,fontSize:14,fontWeight:700,fontFamily:T.font,boxShadow:contactSubject&&contactMsg?"0 4px 16px rgba(181,255,43,0.2)":"none"}}>{t("contactSend")}</button>
+          </div>):(
+            <div style={{textAlign:"center",padding:"20px 0"}}>
+              <div style={{width:56,height:56,borderRadius:"50%",background:T.accentSoft,border:"1px solid rgba(181,255,43,0.15)",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 20px"}}>
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke={T.accent} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div style={{fontSize:20,fontWeight:800,color:T.text,fontFamily:T.fontDisplay}}>{t("contactSent")}</div>
+              <div style={{fontSize:13,color:T.textSecondary,fontFamily:T.font,marginTop:8,lineHeight:1.5}}>{t("contactSentDesc")}</div>
+              <button onClick={()=>{sShowContact(false);sContactSent(false);sContactSubject("");sContactMsg("");}} style={{width:"100%",padding:"14px 0",borderRadius:14,border:`1px solid ${T.surfaceBorder}`,cursor:"pointer",background:T.surface,color:T.text,fontSize:14,fontWeight:600,fontFamily:T.font,marginTop:24}}>OK</button>
+            </div>
+          )}
         </div>
       </div>}
     </div>
