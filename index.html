@@ -94,6 +94,16 @@ en: {
   addToWishlist:"Add to wishlist", removeFromWishlist:"Remove from wishlist", addedToWishlist:"Added to wishlist!",
   lowestPrice:"Lowest price", comparePrices:"Compare prices", wishlistEmpty:"Your wishlist is empty",
   wishlistEmptyDesc:"Search sneakers and add them to track prices",
+  logWear:"Log Wear", logWearTitle:"Log a wear", occasion:"Occasion", today:"Today", wearLogged:"Wear logged!",
+  occasionCasual:"Casual", occasionWork:"Office", occasionSport:"Sport", occasionParty:"Party", occasionDate:"Date night", occasionTravel:"Travel", occasionOther:"Other",
+  notWornSince:"Not worn in {days} days", depreciationNote:"Est. -{pct}% value per 10 wears",
+  sharingSettings:"Sharing & Privacy", sharingDesc:"Control what others can see",
+  shareProfileVisible:"Profile visible in Explore", shareProfileVisibleDesc:"Other users can find and follow you",
+  shareCollection:"Show my collection", shareCollectionDesc:"Followers can see your sneakers",
+  shareWearCount:"Show wear count", shareWearCountDesc:"Display how many times you've worn each pair",
+  shareFollowers:"Show follower count", shareFollowersDesc:"Display your number of followers",
+  sharePairsCount:"Show total pairs", sharePairsCountDesc:"Display your collection size",
+  shareValues:"Show sneaker values", shareValuesDesc:"Display market values on your public dressing",
   explore:"Explore", searchUsers:"Search sneakerheads...", follow:"Follow", following:"Following",
   followers:"followers", followingCount:"following", dressing:"Dressing", save:"Save", saved:"Saved",
   viewDressing:"View Dressing", noUsersFound:"No users found", discoverDressings:"Discover other sneakerheads' collections",
@@ -169,6 +179,16 @@ fr: {
   addToWishlist:"Ajouter à la wishlist", removeFromWishlist:"Retirer de la wishlist", addedToWishlist:"Ajouté à la wishlist !",
   lowestPrice:"Meilleur prix", comparePrices:"Comparer les prix", wishlistEmpty:"Votre wishlist est vide",
   wishlistEmptyDesc:"Recherchez des sneakers et ajoutez-les pour suivre les prix",
+  logWear:"Ajouter un port", logWearTitle:"Enregistrer un port", occasion:"Occasion", today:"Aujourd'hui", wearLogged:"Port enregistré !",
+  occasionCasual:"Casual", occasionWork:"Bureau", occasionSport:"Sport", occasionParty:"Soirée", occasionDate:"Rendez-vous", occasionTravel:"Voyage", occasionOther:"Autre",
+  notWornSince:"Pas portée depuis {days} jours", depreciationNote:"Est. -{pct}% valeur par 10 ports",
+  sharingSettings:"Partage & Confidentialité", sharingDesc:"Contrôlez ce que les autres voient",
+  shareProfileVisible:"Profil visible dans Explorer", shareProfileVisibleDesc:"Les autres utilisateurs peuvent vous trouver et vous suivre",
+  shareCollection:"Montrer ma collection", shareCollectionDesc:"Vos abonnés peuvent voir vos sneakers",
+  shareWearCount:"Montrer le nombre de ports", shareWearCountDesc:"Afficher combien de fois chaque paire a été portée",
+  shareFollowers:"Montrer le nombre d'abonnés", shareFollowersDesc:"Afficher votre nombre d'abonnés",
+  sharePairsCount:"Montrer le total de paires", sharePairsCountDesc:"Afficher la taille de votre collection",
+  shareValues:"Montrer les valeurs", shareValuesDesc:"Afficher les valeurs marché sur votre dressing public",
   explore:"Explorer", searchUsers:"Rechercher des sneakerheads...", follow:"Suivre", following:"Suivi",
   followers:"abonnés", followingCount:"abonnements", dressing:"Dressing", save:"Sauvegarder", saved:"Sauvegardé",
   viewDressing:"Voir le Dressing", noUsersFound:"Aucun utilisateur trouvé", discoverDressings:"Découvrez les collections d'autres sneakerheads",
@@ -244,6 +264,16 @@ es: {
   addToWishlist:"Añadir a wishlist", removeFromWishlist:"Quitar de wishlist", addedToWishlist:"¡Añadido a la wishlist!",
   lowestPrice:"Mejor precio", comparePrices:"Comparar precios", wishlistEmpty:"Tu wishlist está vacía",
   wishlistEmptyDesc:"Busca sneakers y añádelas para seguir los precios",
+  logWear:"Registrar uso", logWearTitle:"Registrar un uso", occasion:"Ocasión", today:"Hoy", wearLogged:"¡Uso registrado!",
+  occasionCasual:"Casual", occasionWork:"Oficina", occasionSport:"Deporte", occasionParty:"Fiesta", occasionDate:"Cita", occasionTravel:"Viaje", occasionOther:"Otro",
+  notWornSince:"No usada en {days} días", depreciationNote:"Est. -{pct}% valor por 10 usos",
+  sharingSettings:"Compartir y Privacidad", sharingDesc:"Controla lo que otros pueden ver",
+  shareProfileVisible:"Perfil visible en Explorar", shareProfileVisibleDesc:"Otros usuarios pueden encontrarte y seguirte",
+  shareCollection:"Mostrar mi colección", shareCollectionDesc:"Tus seguidores pueden ver tus sneakers",
+  shareWearCount:"Mostrar veces usadas", shareWearCountDesc:"Mostrar cuántas veces has usado cada par",
+  shareFollowers:"Mostrar seguidores", shareFollowersDesc:"Mostrar tu número de seguidores",
+  sharePairsCount:"Mostrar total de pares", sharePairsCountDesc:"Mostrar el tamaño de tu colección",
+  shareValues:"Mostrar valores", shareValuesDesc:"Mostrar valores de mercado en tu dressing público",
   explore:"Explorar", searchUsers:"Buscar sneakerheads...", follow:"Seguir", following:"Siguiendo",
   followers:"seguidores", followingCount:"siguiendo", dressing:"Dressing", save:"Guardar", saved:"Guardado",
   viewDressing:"Ver Dressing", noUsersFound:"Ningún usuario encontrado", discoverDressings:"Descubre las colecciones de otros sneakerheads",
@@ -564,7 +594,13 @@ function DetailOv({sneaker,onClose}){
   const{t}=useI18n();const{isPremium,showPaywall}=usePremium();
   const[show,sS]=useState(false);useEffect(()=>{requestAnimationFrame(()=>sS(true));},[]);
   const[customImg,sCustomImg]=useState(null);const editPhotoRef=useRef(null);
-  const g=sneaker.currentValue-sneaker.pricePaid;const gP=((g/sneaker.pricePaid)*100).toFixed(1);const cpw=Math.round(sneaker.pricePaid/Math.max(sneaker.wearCount,1));
+  const[showLogWear,sShowLogWear]=useState(false);const[logOccasion,sLogOccasion]=useState("");const[wearJustLogged,sWearJustLogged]=useState(false);
+  const[extraWears,sExtraWears]=useState(0);const[extraHistory,sExtraHistory]=useState([]);
+  const totalWears2=sneaker.wearCount+extraWears;
+  const depPct=Math.min(5,Math.round((totalWears2/10)*1.5));
+  const depValue=Math.round(sneaker.currentValue*(1-depPct/100));
+  const g=depValue-sneaker.pricePaid;const gP=((g/sneaker.pricePaid)*100).toFixed(1);const cpw=Math.round(sneaker.pricePaid/Math.max(totalWears2,1));
+  const allHistory=[...extraHistory,...sneaker.wearHistory];
   const close=()=>{sS(false);setTimeout(onClose,300);};
   const displayImg=customImg||sneaker.image;
   return(
@@ -583,14 +619,46 @@ function DetailOv({sneaker,onClose}){
           <div style={{fontSize:24,fontWeight:800,color:T.text,fontFamily:T.fontDisplay,letterSpacing:-0.5,lineHeight:1.2}}>{sneaker.name}</div>
           <div style={{fontSize:13,color:T.textSecondary,fontFamily:T.font,marginTop:5}}>{sneaker.colorway} · {sneaker.brand} · {sneaker.size}</div>
           <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:10,marginTop:24}}>
-            {[{l:t("currentValue"),v:fmt(sneaker.currentValue)},{l:t("pricePaid"),v:fmt(sneaker.pricePaid)},{l:t("gainLoss"),v:`${g>=0?"+":""}${fmt(g)}`,sub:`${g>=0?"+":""}${gP}%`,pos:g>=0},{l:t("timesWorn"),v:`${sneaker.wearCount}×`},{l:t("costPerWear"),v:fmt(cpw)},{l:t("lastWorn"),v:sneaker.lastWorn}].map((s,i)=>(
-              <G key={i} style={{padding:"14px 12px"}}><div style={{fontSize:15,fontWeight:700,color:T.text,fontFamily:T.font}}>{s.v}</div><div style={{display:"flex",alignItems:"center",gap:4,marginTop:3}}><div style={{fontSize:9,color:T.textMuted,fontFamily:T.font}}>{s.l}</div>{s.sub&&<div style={{fontSize:8,fontWeight:700,borderRadius:6,padding:"1px 5px",color:s.pos?T.positive:T.negative,background:s.pos?T.positiveBg:T.negativeBg,fontFamily:T.font}}>{s.sub}</div>}</div></G>
+            {[{l:t("currentValue"),v:fmt(depValue),sub:extraWears>0?t("depreciationNote").replace("{pct}",depPct):null,warn:extraWears>0},{l:t("pricePaid"),v:fmt(sneaker.pricePaid)},{l:t("gainLoss"),v:`${g>=0?"+":""}${fmt(g)}`,sub:`${g>=0?"+":""}${gP}%`,pos:g>=0},{l:t("timesWorn"),v:`${totalWears2}×`},{l:t("costPerWear"),v:fmt(cpw)},{l:t("lastWorn"),v:extraHistory.length>0?t("today"):sneaker.lastWorn}].map((s,i)=>(
+              <G key={i} style={{padding:"14px 12px"}}><div style={{fontSize:15,fontWeight:700,color:s.warn?"#ff9f43":T.text,fontFamily:T.font}}>{s.v}</div><div style={{display:"flex",alignItems:"center",gap:4,marginTop:3}}><div style={{fontSize:9,color:T.textMuted,fontFamily:T.font}}>{s.l}</div>{s.sub&&<div style={{fontSize:8,fontWeight:700,borderRadius:6,padding:"1px 5px",color:s.warn?"#ff9f43":s.pos?T.positive:T.negative,background:s.warn?"rgba(255,159,67,0.08)":s.pos?T.positiveBg:T.negativeBg,fontFamily:T.font}}>{s.sub}</div>}</div></G>
             ))}
           </div>
+
+          {/* LOG WEAR BUTTON */}
+          <button onClick={()=>sShowLogWear(!showLogWear)} style={{width:"100%",padding:"14px 0",borderRadius:16,border:"none",cursor:"pointer",background:showLogWear?T.surface:`linear-gradient(135deg,${T.accent} 0%,${T.accentAlt} 100%)`,color:showLogWear?T.textSecondary:T.bg,fontSize:14,fontWeight:700,fontFamily:T.font,marginTop:20,boxShadow:showLogWear?"none":"0 4px 16px rgba(181,255,43,0.2)",display:"flex",alignItems:"center",justifyContent:"center",gap:8,transition:"all 0.2s ease"}}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            {t("logWear")}
+          </button>
+
+          {/* LOG WEAR FORM */}
+          {showLogWear&&<div style={{marginTop:14}}>
+            <G style={{padding:"18px"}}>
+              {!wearJustLogged?(<div>
+                <div style={{fontSize:14,fontWeight:700,color:T.text,fontFamily:T.font,marginBottom:14}}>{t("logWearTitle")}</div>
+                <div style={{fontSize:11,fontWeight:600,color:T.textSecondary,fontFamily:T.font,marginBottom:8}}>{t("occasion")}</div>
+                <div style={{display:"flex",flexWrap:"wrap",gap:6,marginBottom:16}}>
+                  {["occasionCasual","occasionWork","occasionSport","occasionParty","occasionDate","occasionTravel","occasionOther"].map(k=>{
+                    const label=t(k);const active=logOccasion===label;
+                    return(<div key={k} onClick={()=>sLogOccasion(label)} style={{padding:"8px 14px",borderRadius:12,fontSize:12,fontWeight:600,fontFamily:T.font,cursor:"pointer",transition:"all 0.2s ease",background:active?T.accentSoft:T.surface,border:`1px solid ${active?"rgba(181,255,43,0.25)":T.surfaceBorder}`,color:active?T.accent:T.textSecondary}}>{label}</div>);
+                  })}
+                </div>
+                <button onClick={()=>{if(logOccasion){sExtraWears(w=>w+1);const now=new Date();const dateStr=now.toLocaleDateString("en",{month:"short",day:"numeric"});sExtraHistory(h=>[{date:dateStr,occasion:logOccasion},...h]);sWearJustLogged(true);sLogOccasion("");setTimeout(()=>sWearJustLogged(false),2000);}}} style={{width:"100%",padding:"13px 0",borderRadius:14,border:"none",cursor:logOccasion?"pointer":"not-allowed",background:logOccasion?`linear-gradient(135deg,${T.accent} 0%,${T.accentAlt} 100%)`:"rgba(255,255,255,0.06)",color:logOccasion?T.bg:T.textMuted,fontSize:13,fontWeight:700,fontFamily:T.font,boxShadow:logOccasion?"0 4px 16px rgba(181,255,43,0.2)":"none",display:"flex",alignItems:"center",justifyContent:"center",gap:6}}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  {t("logWear")} · {t("today")}
+                </button>
+              </div>):(
+                <div style={{textAlign:"center",padding:"12px 0"}}>
+                  <div style={{fontSize:24,marginBottom:8}}>👟</div>
+                  <div style={{fontSize:14,fontWeight:700,color:T.accent,fontFamily:T.font}}>{t("wearLogged")}</div>
+                  <div style={{fontSize:12,color:T.textSecondary,fontFamily:T.font,marginTop:4}}>{totalWears2}× {t("worn").toLowerCase()} · {fmt(cpw)}/{t("perWear").toLowerCase()}</div>
+                </div>
+              )}
+            </G>
+          </div>}
           <AB affiliates={sneaker.affiliates}/>
           <div style={{marginTop:28,position:"relative"}}><div style={{display:"flex",alignItems:"center",gap:8,marginBottom:12}}><SL>{t("wearHistory")}</SL>{!isPremium&&<PB small/>}</div>
             {!isPremium&&<LO feature={t("wearHistory")} onUpgrade={showPaywall}/>}
-            {sneaker.wearHistory.map((w,i)=>(<G key={i} style={{padding:"12px 16px",display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:6}}><div style={{display:"flex",alignItems:"center",gap:12}}><div style={{width:8,height:8,borderRadius:"50%",background:T.accent,opacity:0.5}}/><div style={{fontSize:12,fontWeight:600,color:T.text,fontFamily:T.font}}>{w.occasion}</div></div><div style={{fontSize:11,color:T.textMuted,fontFamily:T.font}}>{w.date}</div></G>))}
+            {allHistory.map((w,i)=>(<G key={i} style={{padding:"12px 16px",display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:6}}><div style={{display:"flex",alignItems:"center",gap:12}}><div style={{width:8,height:8,borderRadius:"50%",background:i<extraHistory.length?T.accent:T.accent,opacity:i<extraHistory.length?1:0.5}}/><div style={{fontSize:12,fontWeight:600,color:T.text,fontFamily:T.font}}>{w.occasion}</div>{i<extraHistory.length&&<div style={{fontSize:8,fontWeight:700,color:T.accent,background:T.accentSoft,borderRadius:4,padding:"1px 5px",fontFamily:T.font}}>NEW</div>}</div><div style={{fontSize:11,color:T.textMuted,fontFamily:T.font}}>{w.date}</div></G>))}
           </div>
         </div>
       </div>
@@ -743,6 +811,7 @@ function InsightsTab({onNavigate}){
 function ProfileTab(){
   const{t,lang,setLang}=useI18n();const{isPremium,showPaywall,togglePremium}=usePremium();
   const[v,sV]=useState(false);const[notifs,sN]=useState({price:true,wear:true,wishlist:true});const[currency,sCur]=useState("eur");const[sizeUnit,sSU]=useState("us");const[showDel,sShowDel]=useState(false);const[showContact,sShowContact]=useState(false);const[contactSent,sContactSent]=useState(false);const[contactSubject,sContactSubject]=useState("");const[contactMsg,sContactMsg]=useState("");
+  const[sharing,sSharing]=useState({profileVisible:true,collection:true,wearCount:true,followers:true,pairsCount:true,values:false});
   useEffect(()=>{const t2=setTimeout(()=>sV(true),80);return()=>clearTimeout(t2);},[]);
   return(<div>
     <FI visible={v} delay={0}><div style={{padding:"52px 22px 0"}}><div style={{fontSize:28,fontWeight:800,color:T.text,fontFamily:T.fontDisplay,letterSpacing:-0.8,marginBottom:24}}>{t("profile")}</div></div></FI>
@@ -778,6 +847,16 @@ function ProfileTab(){
           <SR icon={<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" strokeWidth="1.8" strokeLinecap="round"><path d="M6 8a6 6 0 0112 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 003.4 0"/></svg>} label={t("priceAlerts")} subtitle={t("priceAlertsDesc")} right={<Tog value={notifs.price} onChange={v=>sN(n=>({...n,price:v}))}/>}/>
           <SR icon={<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" strokeWidth="1.8" strokeLinecap="round"><polyline points="23 4 23 10 17 10"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10"/></svg>} label={t("wearReminders")} subtitle={t("wearRemindersDesc")} right={<Tog value={notifs.wear} onChange={v=>sN(n=>({...n,wear:v}))}/>}/>
           <SR icon={<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" strokeWidth="1.8" strokeLinecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l7.78-7.78a5.5 5.5 0 000-7.78z"/></svg>} label={t("wishlistDrops")} subtitle={t("wishlistDropsDesc")} right={<Tog value={notifs.wishlist} onChange={v=>sN(n=>({...n,wishlist:v}))}/>}/>
+        </G>
+
+        <SL>{t("sharingSettings")}</SL>
+        <G style={{padding:"4px 18px",marginBottom:28}}>
+          <SR icon={<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" strokeWidth="1.8" strokeLinecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>} label={t("shareProfileVisible")} subtitle={t("shareProfileVisibleDesc")} right={<Tog value={sharing.profileVisible} onChange={v=>sSharing(s=>({...s,profileVisible:v}))}/>}/>
+          <SR icon={<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={sharing.profileVisible?"rgba(255,255,255,0.6)":"rgba(255,255,255,0.2)"} strokeWidth="1.8" strokeLinecap="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>} label={<span style={{opacity:sharing.profileVisible?1:0.4}}>{t("shareCollection")}</span>} subtitle={t("shareCollectionDesc")} right={<Tog value={sharing.profileVisible&&sharing.collection} onChange={v=>sSharing(s=>({...s,collection:v}))}/>}/>
+          <SR icon={<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={sharing.profileVisible?"rgba(255,255,255,0.6)":"rgba(255,255,255,0.2)"} strokeWidth="1.8" strokeLinecap="round"><polyline points="23 4 23 10 17 10"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10"/></svg>} label={<span style={{opacity:sharing.profileVisible?1:0.4}}>{t("shareWearCount")}</span>} subtitle={t("shareWearCountDesc")} right={<Tog value={sharing.profileVisible&&sharing.wearCount} onChange={v=>sSharing(s=>({...s,wearCount:v}))}/>}/>
+          <SR icon={<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={sharing.profileVisible?"rgba(255,255,255,0.6)":"rgba(255,255,255,0.2)"} strokeWidth="1.8" strokeLinecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>} label={<span style={{opacity:sharing.profileVisible?1:0.4}}>{t("shareFollowers")}</span>} subtitle={t("shareFollowersDesc")} right={<Tog value={sharing.profileVisible&&sharing.followers} onChange={v=>sSharing(s=>({...s,followers:v}))}/>}/>
+          <SR icon={<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={sharing.profileVisible?"rgba(255,255,255,0.6)":"rgba(255,255,255,0.2)"} strokeWidth="1.8" strokeLinecap="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>} label={<span style={{opacity:sharing.profileVisible?1:0.4}}>{t("sharePairsCount")}</span>} subtitle={t("sharePairsCountDesc")} right={<Tog value={sharing.profileVisible&&sharing.pairsCount} onChange={v=>sSharing(s=>({...s,pairsCount:v}))}/>}/>
+          <SR icon={<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={sharing.profileVisible?"rgba(255,255,255,0.6)":"rgba(255,255,255,0.2)"} strokeWidth="1.8" strokeLinecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>} label={<span style={{opacity:sharing.profileVisible?1:0.4}}>{t("shareValues")}</span>} subtitle={t("shareValuesDesc")} right={<Tog value={sharing.profileVisible&&sharing.values} onChange={v=>sSharing(s=>({...s,values:v}))}/>}/>
         </G>
 
         <SL>{t("preferences")}</SL>
