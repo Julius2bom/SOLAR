@@ -345,6 +345,19 @@ function Paywall({onClose,onSubscribe}){
 
 
 // ═══════════════════════════════════════════
+//  GLOBAL HEADER (Gear + J avatar — all pages)
+// ═══════════════════════════════════════════
+function GH({onNavigate}){
+  const{isPremium}=usePremium();
+  return(
+    <div style={{position:"absolute",top:48,right:22,display:"flex",alignItems:"center",gap:10,zIndex:50}}>
+      <div onClick={()=>onNavigate("profile")} style={{width:38,height:38,borderRadius:"50%",background:T.surface,border:`1px solid ${T.surfaceBorder}`,display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer"}}><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="1.8" strokeLinecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg></div>
+      <div onClick={()=>onNavigate("profile")} style={{width:44,height:44,borderRadius:"50%",background:isPremium?"linear-gradient(135deg,rgba(255,215,0,0.15) 0%,rgba(255,215,0,0.04) 100%)":"linear-gradient(135deg,rgba(181,255,43,0.12) 0%,rgba(181,255,43,0.04) 100%)",border:isPremium?`1px solid ${T.proBorder}`:"1px solid rgba(181,255,43,0.12)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:16,color:isPremium?T.pro:T.accent,fontWeight:700,fontFamily:T.fontDisplay,cursor:"pointer"}}>J</div>
+    </div>
+  );
+}
+
+// ═══════════════════════════════════════════
 //  TAB: HOME
 // ═══════════════════════════════════════════
 function HomeTab({onNavigate}){
@@ -352,8 +365,9 @@ function HomeTab({onNavigate}){
   const[v,sV]=useState(false);useEffect(()=>{const t2=setTimeout(()=>sV(true),80);return()=>clearTimeout(t2);},[]);
   const hero=COLLECTION[2];const now=new Date();
   const greet=now.getHours()<12?t("goodMorning"):now.getHours()<18?t("goodAfternoon"):t("goodEvening");
-  return(<div>
-    <FI visible={v} delay={0}><div style={{padding:"52px 22px 8px"}}><div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}><div><div style={{fontSize:12,color:T.textMuted,fontWeight:500}}>{greet}</div><div style={{display:"flex",alignItems:"center",gap:10}}><div style={{fontSize:28,fontWeight:800,color:T.text,fontFamily:T.fontDisplay,letterSpacing:-0.8,marginTop:2}}>Julius</div>{isPremium&&<PB/>}</div></div><div style={{display:"flex",alignItems:"center",gap:10}}><div onClick={()=>onNavigate("profile")} style={{width:38,height:38,borderRadius:"50%",background:T.surface,border:`1px solid ${T.surfaceBorder}`,display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer"}}><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="1.8" strokeLinecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg></div><div onClick={()=>onNavigate("profile")} style={{width:44,height:44,borderRadius:"50%",background:isPremium?"linear-gradient(135deg,rgba(255,215,0,0.15) 0%,rgba(255,215,0,0.04) 100%)":"linear-gradient(135deg,rgba(181,255,43,0.12) 0%,rgba(181,255,43,0.04) 100%)",border:isPremium?`1px solid ${T.proBorder}`:"1px solid rgba(181,255,43,0.12)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:16,color:isPremium?T.pro:T.accent,fontWeight:700,fontFamily:T.fontDisplay,cursor:"pointer"}}>J</div></div></div></div></FI>
+  return(<div style={{position:"relative"}}>
+    <GH onNavigate={onNavigate}/>
+    <FI visible={v} delay={0}><div style={{padding:"52px 22px 8px"}}><div><div style={{fontSize:12,color:T.textMuted,fontWeight:500}}>{greet}</div><div style={{display:"flex",alignItems:"center",gap:10}}><div style={{fontSize:28,fontWeight:800,color:T.text,fontFamily:T.fontDisplay,letterSpacing:-0.8,marginTop:2}}>Julius</div>{isPremium&&<PB/>}</div></div></div></FI>
     <div style={{padding:"16px 18px 0"}}>
       <FI visible={v} delay={0.1}>
         <G glow style={{padding:"26px 22px 22px",marginBottom:24}}>
@@ -399,13 +413,14 @@ function HomeTab({onNavigate}){
 // ═══════════════════════════════════════════
 //  TAB: COLLECTION (compact — same logic, i18n strings)
 // ═══════════════════════════════════════════
-function CollectionTab(){
+function CollectionTab({onNavigate}){
   const{t}=useI18n();const{isPremium,showPaywall}=usePremium();
   const[v,sV]=useState(false);const[vm,sVM]=useState("grid");const[search,sSe]=useState("");const[filters,sFi]=useState({brand:null,mood:null,favorites:false});const[sel,sSel]=useState(null);
   useEffect(()=>{const t2=setTimeout(()=>sV(true),80);return()=>clearTimeout(t2);},[]);
   const filtered=COLLECTION.filter(s=>{if(search&&!s.name.toLowerCase().includes(search.toLowerCase())&&!s.colorway.toLowerCase().includes(search.toLowerCase()))return false;if(filters.brand&&s.brand!==filters.brand)return false;if(filters.mood&&s.mood!==filters.mood)return false;if(filters.favorites&&!s.isFavorite)return false;return true;});
   const chip=a=>({padding:"7px 14px",borderRadius:20,fontSize:11,fontWeight:600,fontFamily:T.font,border:`1px solid ${a?"rgba(181,255,43,0.25)":T.surfaceBorder}`,background:a?T.accentSoft:"transparent",color:a?T.accent:T.textSecondary,cursor:"pointer",transition:"all 0.2s ease",whiteSpace:"nowrap",flexShrink:0});
-  return(<div>
+  return(<div style={{position:"relative"}}>
+    <GH onNavigate={onNavigate}/>
     <FI visible={v} delay={0}><div style={{padding:"52px 22px 0"}}><div style={{fontSize:28,fontWeight:800,color:T.text,fontFamily:T.fontDisplay,letterSpacing:-0.8}}>{t("collection")}</div><div style={{fontSize:12,color:T.textMuted,fontFamily:T.font,marginTop:3,marginBottom:6}}>{COLLECTION.length} {t("pairs")} · {fmt(totalValue)} {t("totalValue")}</div>{!isPremium&&<div style={{fontSize:11,color:T.pro,fontFamily:T.font,marginBottom:14,display:"flex",alignItems:"center",gap:6}}><PB small/>{COLLECTION.length}/{FREE_LIMIT} {t("freePairsUsed")}</div>}</div></FI>
     <div style={{padding:"0 22px"}}>
       <FI visible={v} delay={0.08}><div style={{position:"relative",marginBottom:16}}><svg style={{position:"absolute",left:14,top:"50%",transform:"translateY(-50%)",opacity:0.3}} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input type="text" placeholder={t("searchCollection")} value={search} onChange={e=>sSe(e.target.value)} style={{width:"100%",boxSizing:"border-box",padding:"13px 16px 13px 42px",background:T.surface,border:`1px solid ${T.surfaceBorder}`,borderRadius:16,color:T.text,fontSize:13,fontFamily:T.font,outline:"none"}}/></div></FI>
@@ -474,7 +489,8 @@ function AddTab({onNavigate}){
   useEffect(()=>{sForm({name:"",brand:"",colorway:"",size:"US 10",pricePaid:"",currentValue:"",purchaseDate:"",condition:"Deadstock (DS)",mood:"",notes:"",...fData});},[fData]);
   const upd=(k,val)=>sForm(f=>({...f,[k]:val}));
   const filled=form.name&&form.brand&&form.size&&form.pricePaid;
-  return(<div>
+  return(<div style={{position:"relative"}}>
+    <GH onNavigate={onNavigate}/>
     <FI visible={v} delay={0}><div style={{padding:"52px 22px 0"}}><div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:8}}><div style={{fontSize:28,fontWeight:800,color:T.text,fontFamily:T.fontDisplay,letterSpacing:-0.8}}>{t("addSneaker")}</div>{step!=="success"&&<div style={{fontSize:10,fontWeight:700,color:T.accent,background:T.accentSoft,borderRadius:20,padding:"4px 12px",fontFamily:T.font,border:"1px solid rgba(181,255,43,0.1)"}}>{t("step")} {step==="search"?"1":"2"}/2</div>}</div>
       {step!=="success"&&<div style={{display:"flex",gap:6,marginBottom:12,marginTop:12}}>{[0,1].map(i=><div key={i} style={{flex:1,height:3,borderRadius:2,background:i<=(step==="search"?0:1)?T.accent:"rgba(255,255,255,0.06)",transition:"background 0.4s ease"}}/>)}</div>}
       {atLimit&&step==="search"&&<div onClick={showPaywall} style={{padding:"14px 18px",borderRadius:16,marginBottom:16,cursor:"pointer",background:T.proSoft,border:`1px solid ${T.proBorder}`,display:"flex",alignItems:"center",gap:12}}><div style={{fontSize:22}}>🔒</div><div style={{flex:1}}><div style={{fontSize:13,fontWeight:700,color:T.pro,fontFamily:T.font}}>{t("collectionLimitReached")}</div><div style={{fontSize:11,color:T.textSecondary,fontFamily:T.font,marginTop:2}}>{t("collectionLimitDesc").replace("{limit}",FREE_LIMIT)}</div></div><PB/></div>}
@@ -523,7 +539,7 @@ function AddTab({onNavigate}){
 // ═══════════════════════════════════════════
 //  TAB: INSIGHTS (compact)
 // ═══════════════════════════════════════════
-function InsightsTab(){
+function InsightsTab({onNavigate}){
   const{t}=useI18n();const{isPremium,showPaywall}=usePremium();
   const[v,sV]=useState(false);const[anim,sAnim]=useState(false);const[tab,sTab]=useState("value");const[hov,sHov]=useState(null);
   useEffect(()=>{const t1=setTimeout(()=>sV(true),80);const t2=setTimeout(()=>sAnim(true),400);return()=>{clearTimeout(t1);clearTimeout(t2);};},[]);
@@ -538,7 +554,8 @@ function InsightsTab(){
   const bestCPW=[...COLLECTION].sort((a,b)=>(a.pricePaid/Math.max(a.wearCount,1))-(b.pricePaid/Math.max(b.wearCount,1)))[0];
   const avgW=totalWears/COLLECTION.length;const variance=COLLECTION.reduce((s,c)=>s+Math.pow(c.wearCount-avgW,1.5),0)/COLLECTION.length;const rotScore=Math.max(0,Math.min(100,Math.round(100-variance*0.6)));
 
-  return(<div>
+  return(<div style={{position:"relative"}}>
+    <GH onNavigate={onNavigate}/>
     <FI visible={v} delay={0}><div style={{padding:"52px 22px 0"}}><div style={{display:"flex",alignItems:"center",gap:10,marginBottom:24}}><div style={{fontSize:28,fontWeight:800,color:T.text,fontFamily:T.fontDisplay,letterSpacing:-0.8}}>{t("insights")}</div>{!isPremium&&<PB/>}</div></div></FI>
     <div style={{padding:"0 18px"}}>
       <FI visible={v} delay={0.08}><div style={{display:"flex",gap:10,marginBottom:24}}>{[{l:t("avgCostWear"),v:fmt(Math.round(totalPaid/totalWears))},{l:t("totalWears"),v:`${totalWears}×`},{l:t("collectionAge"),v:`14 ${t("months")}`}].map((x,i)=>(<G key={i} style={{flex:1,padding:"14px 12px",textAlign:"center"}}><div style={{fontSize:16,fontWeight:700,color:T.text,fontFamily:T.font}}>{x.v}</div><div style={{fontSize:9,color:T.textMuted,fontFamily:T.font,marginTop:3}}>{x.l}</div></G>))}</div></FI>
@@ -701,7 +718,7 @@ const MOCK_USERS = [
     ]},
 ];
 
-function ExploreTab(){
+function ExploreTab({onNavigate}){
   const{t}=useI18n();
   const[v,sV]=useState(false);const[query,sQ]=useState("");const[followedIds,sFollowed]=useState(["u2"]);const[savedPairs,sSaved]=useState([]);const[viewUser,sViewUser]=useState(null);const[showSaved,sShowSaved]=useState(false);
   useEffect(()=>{const t2=setTimeout(()=>sV(true),80);return()=>clearTimeout(t2);},[]);
@@ -716,14 +733,18 @@ function ExploreTab(){
     <UserProfile user={viewUser} onBack={()=>sViewUser(null)} isFollowed={followedIds.includes(viewUser.id)} onToggleFollow={()=>toggleFollow(viewUser.id)} savedPairs={savedPairs} onToggleSave={toggleSave} isSaved={isSaved}/>
   );
 
-  return(<div>
+  return(<div style={{position:"relative"}}>
+    <GH onNavigate={onNavigate}/>
     <FI visible={v} delay={0}><div style={{padding:"52px 22px 0"}}>
-      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:20}}>
-        <div><div style={{fontSize:28,fontWeight:800,color:T.text,fontFamily:T.fontDisplay,letterSpacing:-0.8}}>{t("explore")}</div><div style={{fontSize:12,color:T.textMuted,fontFamily:T.font,marginTop:3}}>{t("discoverDressings")}</div></div>
-        <div onClick={()=>sShowSaved(!showSaved)} style={{width:40,height:40,borderRadius:"50%",border:`1px solid ${savedPairs.length>0?T.proBorder:T.surfaceBorder}`,background:savedPairs.length>0?T.proSoft:T.surface,display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",position:"relative"}}>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill={savedPairs.length>0?T.pro:"none"} stroke={savedPairs.length>0?T.pro:"rgba(255,255,255,0.5)"} strokeWidth="1.8" strokeLinecap="round"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
-          {savedPairs.length>0&&<div style={{position:"absolute",top:-2,right:-2,width:16,height:16,borderRadius:"50%",background:T.pro,color:T.bg,fontSize:9,fontWeight:700,display:"flex",alignItems:"center",justifyContent:"center"}}>{savedPairs.length}</div>}
+      <div style={{marginBottom:20}}>
+        <div style={{display:"flex",alignItems:"center",gap:10}}>
+          <div style={{fontSize:28,fontWeight:800,color:T.text,fontFamily:T.fontDisplay,letterSpacing:-0.8}}>{t("explore")}</div>
+          <div onClick={()=>sShowSaved(!showSaved)} style={{width:34,height:34,borderRadius:"50%",border:`1px solid ${savedPairs.length>0?T.proBorder:T.surfaceBorder}`,background:savedPairs.length>0?T.proSoft:T.surface,display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",position:"relative"}}>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill={savedPairs.length>0?T.pro:"none"} stroke={savedPairs.length>0?T.pro:"rgba(255,255,255,0.5)"} strokeWidth="1.8" strokeLinecap="round"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+            {savedPairs.length>0&&<div style={{position:"absolute",top:-2,right:-2,width:14,height:14,borderRadius:"50%",background:T.pro,color:T.bg,fontSize:8,fontWeight:700,display:"flex",alignItems:"center",justifyContent:"center"}}>{savedPairs.length}</div>}
+          </div>
         </div>
+        <div style={{fontSize:12,color:T.textMuted,fontFamily:T.font,marginTop:3}}>{t("discoverDressings")}</div>
       </div>
     </div></FI>
 
@@ -756,7 +777,6 @@ function ExploreTab(){
         <div style={{display:"flex",flexDirection:"column",gap:10,paddingBottom:120}}>
           {results.map(u=>{
             const isF=followedIds.includes(u.id);
-            const totalVal=u.collection.reduce((s,c)=>s+c.currentValue,0);
             return(
               <G key={u.id} style={{padding:"16px 18px",cursor:"pointer"}} onClick={()=>sViewUser(u)}>
                 <div style={{display:"flex",alignItems:"center",gap:14}}>
@@ -764,7 +784,7 @@ function ExploreTab(){
                   <div style={{flex:1,minWidth:0}}>
                     <div style={{display:"flex",alignItems:"center",gap:6}}><div style={{fontSize:14,fontWeight:700,color:T.text,fontFamily:T.font}}>{u.displayName}</div></div>
                     <div style={{fontSize:11,color:T.textMuted,fontFamily:T.font,marginTop:1}}>@{u.username}</div>
-                    <div style={{fontSize:11,color:T.textSecondary,fontFamily:T.font,marginTop:4}}>{u.collection.length} {t("pairs")} · {fmt(totalVal)}</div>
+                    <div style={{fontSize:11,color:T.textSecondary,fontFamily:T.font,marginTop:4}}>{u.collection.length} {t("pairs")} · {u.followersCount.toLocaleString()} {t("followers")}</div>
                   </div>
                   <button onClick={e=>{e.stopPropagation();toggleFollow(u.id);}} style={{padding:"8px 16px",borderRadius:12,border:isF?`1px solid ${T.surfaceBorder}`:`1px solid rgba(181,255,43,0.3)`,background:isF?T.surface:T.accentSoft,color:isF?T.textSecondary:T.accent,fontSize:11,fontWeight:700,fontFamily:T.font,cursor:"pointer",transition:"all 0.2s ease",flexShrink:0}}>
                     {isF?t("following"):t("follow")}
@@ -792,7 +812,6 @@ function ExploreTab(){
 function UserProfile({user,onBack,isFollowed,onToggleFollow,savedPairs,onToggleSave,isSaved}){
   const{t}=useI18n();const[v,sV]=useState(false);
   useEffect(()=>{const t2=setTimeout(()=>sV(true),80);return()=>clearTimeout(t2);},[]);
-  const totalVal=user.collection.reduce((s,c)=>s+c.currentValue,0);
 
   return(<div>
     <FI visible={v} delay={0}><div style={{padding:"52px 22px 0"}}>
@@ -815,8 +834,8 @@ function UserProfile({user,onBack,isFollowed,onToggleFollow,savedPairs,onToggleS
           </div>
           <div style={{display:"flex",gap:20,marginTop:18,paddingTop:16,borderTop:`1px solid ${T.surfaceBorder}`,position:"relative",zIndex:1}}>
             <div style={{textAlign:"center"}}><div style={{fontSize:16,fontWeight:700,color:T.text,fontFamily:T.font}}>{user.collection.length}</div><div style={{fontSize:9,color:T.textMuted,fontFamily:T.font,marginTop:2}}>{t("pairs")}</div></div>
-            <div style={{textAlign:"center"}}><div style={{fontSize:16,fontWeight:700,color:T.text,fontFamily:T.font}}>{fmt(totalVal)}</div><div style={{fontSize:9,color:T.textMuted,fontFamily:T.font,marginTop:2}}>{t("value")}</div></div>
             <div style={{textAlign:"center"}}><div style={{fontSize:16,fontWeight:700,color:T.text,fontFamily:T.font}}>{user.followersCount.toLocaleString()}</div><div style={{fontSize:9,color:T.textMuted,fontFamily:T.font,marginTop:2}}>{t("followers")}</div></div>
+            <div style={{textAlign:"center"}}><div style={{fontSize:16,fontWeight:700,color:T.text,fontFamily:T.font}}>{user.followingCount}</div><div style={{fontSize:9,color:T.textMuted,fontFamily:T.font,marginTop:2}}>{t("followingCount")}</div></div>
             <div style={{marginLeft:"auto"}}>
               <button onClick={onToggleFollow} style={{padding:"10px 24px",borderRadius:14,border:isFollowed?`1px solid ${T.surfaceBorder}`:`1px solid rgba(181,255,43,0.3)`,background:isFollowed?T.surface:`linear-gradient(135deg,${T.accent} 0%,${T.accentAlt} 100%)`,color:isFollowed?T.textSecondary:T.bg,fontSize:12,fontWeight:700,fontFamily:T.font,cursor:"pointer",transition:"all 0.2s ease",boxShadow:isFollowed?"none":"0 4px 16px rgba(181,255,43,0.2)"}}>{isFollowed?t("following"):t("follow")}</button>
             </div>
@@ -967,12 +986,156 @@ function SplashScreen({onDone}){
   );
 }
 
+// ═══════════════════════════════════════════
+//  AUTH SCREEN (Login / Sign Up)
+// ═══════════════════════════════════════════
+function AuthScreen({onAuth}){
+  const[mode,sMode]=useState("welcome"); // welcome | login | signup
+  const[v,sV]=useState(false);
+  const[email,sEmail]=useState("");
+  const[pass,sPass]=useState("");
+  const[name,sName]=useState("");
+  useEffect(()=>{const t=setTimeout(()=>sV(true),100);return()=>clearTimeout(t);},[]);
+
+  const socialBtn=(icon,label,bg,color,borderColor)=>(
+    <button onClick={()=>onAuth()} style={{
+      width:"100%",padding:"14px 0",borderRadius:16,border:`1px solid ${borderColor}`,
+      background:bg,color:color,fontSize:14,fontWeight:600,fontFamily:T.font,
+      cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",gap:12,
+      transition:"all 0.2s ease",marginBottom:10,
+    }}>
+      {icon}<span>{label}</span>
+    </button>
+  );
+
+  const googleIcon=<svg width="20" height="20" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>;
+  const appleIcon=<svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.32 2.32-1.55 4.24-3.74 4.25z"/></svg>;
+  const fbIcon=<svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>;
+
+  // Welcome screen (first view)
+  if(mode==="welcome") return(
+    <div style={{position:"fixed",inset:0,zIndex:9998,background:T.bg,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:"40px 28px"}}>
+      <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+      <style>{`html,body{margin:0;padding:0;background:#08080c}*{box-sizing:border-box}`}</style>
+
+      <div style={{opacity:v?1:0,transform:v?"translateY(0)":"translateY(20px)",transition:"all 0.8s cubic-bezier(0.22,1,0.36,1)",textAlign:"center",width:"100%",maxWidth:360}}>
+
+        {/* Logo */}
+        <div style={{width:90,height:90,borderRadius:22,overflow:"hidden",position:"relative",margin:"0 auto 32px"}}>
+          <div style={{position:"absolute",top:0,left:0,width:90,height:45,background:T.accent}}/>
+          <div style={{position:"absolute",top:45,left:0,width:90,height:45,background:T.bg}}/>
+          <svg width="90" height="90" viewBox="0 0 90 90" style={{position:"absolute",inset:0}}>
+            <clipPath id="authTop"><rect x="0" y="0" width="90" height="45"/></clipPath>
+            <clipPath id="authBot"><rect x="0" y="45" width="90" height="45"/></clipPath>
+            <g clipPath="url(#authTop)"><text x="45" y="72" textAnchor="middle" fontFamily="'Outfit', sans-serif" fontSize="88" fontWeight="900" fill={T.bg}>S</text></g>
+            <g clipPath="url(#authBot)"><text x="45" y="72" textAnchor="middle" fontFamily="'Outfit', sans-serif" fontSize="88" fontWeight="900" fill={T.accent}>S</text></g>
+          </svg>
+        </div>
+
+        <div style={{fontSize:32,fontWeight:800,color:T.text,fontFamily:T.fontDisplay,letterSpacing:-0.5}}>SOLAR</div>
+        <div style={{fontSize:13,color:T.textSecondary,fontFamily:T.font,marginTop:8,lineHeight:1.5}}>Your private sneaker universe</div>
+
+        <div style={{marginTop:48,width:"100%"}}>
+          <button onClick={()=>sMode("signup")} style={{
+            width:"100%",padding:"16px 0",borderRadius:16,border:"none",cursor:"pointer",
+            background:`linear-gradient(135deg,${T.accent} 0%,${T.accentAlt} 100%)`,
+            color:T.bg,fontSize:15,fontWeight:700,fontFamily:T.font,marginBottom:12,
+            boxShadow:"0 6px 24px rgba(181,255,43,0.2)",
+          }}>Create Account</button>
+
+          <button onClick={()=>sMode("login")} style={{
+            width:"100%",padding:"16px 0",borderRadius:16,cursor:"pointer",
+            border:`1px solid ${T.surfaceBorder}`,background:T.surface,
+            color:T.text,fontSize:15,fontWeight:600,fontFamily:T.font,
+          }}>Log In</button>
+        </div>
+
+        <div style={{marginTop:24,fontSize:11,color:T.textMuted,fontFamily:T.font}}>
+          By continuing, you agree to our Terms of Service
+        </div>
+      </div>
+    </div>
+  );
+
+  // Login / Signup form
+  const isLogin = mode==="login";
+  return(
+    <div style={{position:"fixed",inset:0,zIndex:9998,background:T.bg,display:"flex",flexDirection:"column",padding:"0 28px",overflowY:"auto"}}>
+      <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+      <style>{`html,body{margin:0;padding:0;background:#08080c}*{box-sizing:border-box}input::placeholder{color:rgba(255,255,255,0.2)}`}</style>
+
+      <div style={{maxWidth:360,width:"100%",margin:"0 auto",paddingTop:60}}>
+
+        {/* Back button */}
+        <button onClick={()=>sMode("welcome")} style={{
+          width:38,height:38,borderRadius:"50%",border:`1px solid ${T.surfaceBorder}`,
+          background:T.surface,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",marginBottom:32,
+        }}>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" strokeWidth="2" strokeLinecap="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        </button>
+
+        <div style={{fontSize:28,fontWeight:800,color:T.text,fontFamily:T.fontDisplay,letterSpacing:-0.5}}>{isLogin?"Welcome back":"Create account"}</div>
+        <div style={{fontSize:13,color:T.textSecondary,fontFamily:T.font,marginTop:6,marginBottom:32}}>{isLogin?"Log in to your SOLAR account":"Join the sneaker universe"}</div>
+
+        {/* Social login buttons */}
+        {socialBtn(googleIcon,"Continue with Google","#ffffff","#333","#ddd")}
+        {socialBtn(appleIcon,"Continue with Apple","#000000","#ffffff","#333")}
+        {socialBtn(fbIcon,"Continue with Facebook","#1877F2","#ffffff","#1877F2")}
+
+        {/* Divider */}
+        <div style={{display:"flex",alignItems:"center",gap:16,margin:"20px 0"}}>
+          <div style={{flex:1,height:1,background:T.surfaceBorder}}/>
+          <div style={{fontSize:11,color:T.textMuted,fontFamily:T.font}}>or</div>
+          <div style={{flex:1,height:1,background:T.surfaceBorder}}/>
+        </div>
+
+        {/* Email form */}
+        {!isLogin&&<div style={{marginBottom:14}}>
+          <div style={{fontSize:11,fontWeight:600,color:T.textSecondary,fontFamily:T.font,marginBottom:6}}>Display Name</div>
+          <input type="text" value={name} onChange={e=>sName(e.target.value)} placeholder="Julius"
+            style={{width:"100%",boxSizing:"border-box",padding:"13px 14px",background:T.surface,border:`1px solid ${T.surfaceBorder}`,borderRadius:14,color:T.text,fontSize:14,fontFamily:T.font,outline:"none"}}/>
+        </div>}
+
+        <div style={{marginBottom:14}}>
+          <div style={{fontSize:11,fontWeight:600,color:T.textSecondary,fontFamily:T.font,marginBottom:6}}>Email</div>
+          <input type="email" value={email} onChange={e=>sEmail(e.target.value)} placeholder="you@email.com"
+            style={{width:"100%",boxSizing:"border-box",padding:"13px 14px",background:T.surface,border:`1px solid ${T.surfaceBorder}`,borderRadius:14,color:T.text,fontSize:14,fontFamily:T.font,outline:"none"}}/>
+        </div>
+
+        <div style={{marginBottom:8}}>
+          <div style={{fontSize:11,fontWeight:600,color:T.textSecondary,fontFamily:T.font,marginBottom:6}}>Password</div>
+          <input type="password" value={pass} onChange={e=>sPass(e.target.value)} placeholder="Min. 8 characters"
+            style={{width:"100%",boxSizing:"border-box",padding:"13px 14px",background:T.surface,border:`1px solid ${T.surfaceBorder}`,borderRadius:14,color:T.text,fontSize:14,fontFamily:T.font,outline:"none"}}/>
+        </div>
+
+        {isLogin&&<div style={{textAlign:"right",marginBottom:20}}>
+          <span style={{fontSize:11,color:T.accent,fontFamily:T.font,cursor:"pointer"}}>Forgot password?</span>
+        </div>}
+
+        <button onClick={()=>onAuth()} style={{
+          width:"100%",padding:"16px 0",borderRadius:16,border:"none",cursor:"pointer",
+          background:`linear-gradient(135deg,${T.accent} 0%,${T.accentAlt} 100%)`,
+          color:T.bg,fontSize:15,fontWeight:700,fontFamily:T.font,marginTop:isLogin?12:20,
+          boxShadow:"0 6px 24px rgba(181,255,43,0.2)",
+        }}>{isLogin?"Log In":"Create Account"}</button>
+
+        {/* Switch mode */}
+        <div style={{textAlign:"center",marginTop:24,marginBottom:40,fontSize:13,color:T.textSecondary,fontFamily:T.font}}>
+          {isLogin?"Don't have an account? ":"Already have an account? "}
+          <span onClick={()=>sMode(isLogin?"signup":"login")} style={{color:T.accent,fontWeight:700,cursor:"pointer"}}>{isLogin?"Sign Up":"Log In"}</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function SoularApp(){
   const[activeTab,sAT]=useState("home");
   const[isPremium,sIP]=useState(false);
   const[showPW,sSPW]=useState(false);
   const[lang,sLang]=useState(()=>detectLang());
   const[splashDone,sSplash]=useState(false);
+  const[authed,sAuthed]=useState(false);
 
   const t=(key,params={})=>{let str=TR[lang]?.[key]||TR.en[key]||key;Object.entries(params).forEach(([k,v])=>{str=str.replace(`{${k}}`,v);});return str;};
 
@@ -983,6 +1146,8 @@ function SoularApp(){
       <SplashScreen onDone={()=>sSplash(true)}/>
     </div>
   );
+
+  if(!authed) return <AuthScreen onAuth={()=>sAuthed(true)}/>;
 
   return(
     <I18nCtx.Provider value={{lang,setLang:sLang,t}}>
@@ -1003,10 +1168,10 @@ input,textarea,button{font-family:inherit}
         <div className="soular-glow"/>
         <div key={activeTab} style={{animation:"fit 0.4s ease",position:"relative",zIndex:1}}>
           {activeTab==="home"&&<HomeTab onNavigate={sAT}/>}
-          {activeTab==="collection"&&<CollectionTab/>}
+          {activeTab==="collection"&&<CollectionTab onNavigate={sAT}/>}
           {activeTab==="add"&&<AddTab onNavigate={sAT}/>}
-          {activeTab==="explore"&&<ExploreTab/>}
-          {activeTab==="insights"&&<InsightsTab/>}
+          {activeTab==="explore"&&<ExploreTab onNavigate={sAT}/>}
+          {activeTab==="insights"&&<InsightsTab onNavigate={sAT}/>}
           {activeTab==="profile"&&<ProfileTab/>}
         </div>
         <BNav active={activeTab} setActive={sAT}/>
