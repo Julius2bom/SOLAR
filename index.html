@@ -885,7 +885,7 @@ function ProfileTab(){
           <SR icon={<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,215,0,0.6)" strokeWidth="1.8" strokeLinecap="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>} label={t("toggleProDev")} subtitle={`${t("currently")}: ${isPremium?"Pro":"Free"}`} right={<Tog value={isPremium} onChange={togglePremium}/>}/>
         </G>
 
-        <div style={{textAlign:"center",padding:"12px 0 120px"}}><div style={{fontSize:14,fontWeight:800,color:T.accent,fontFamily:T.fontDisplay,letterSpacing:1}}>SOLAR</div><div style={{fontSize:10,color:T.textMuted,fontFamily:T.font,marginTop:4}}>Your private sneaker universe</div><div style={{fontSize:9,color:T.textMuted,fontFamily:T.font,marginTop:8}}>v1.0.0 · [12:12]</div></div>
+        <div style={{textAlign:"center",padding:"12px 0 120px"}}><div style={{fontSize:14,fontWeight:800,color:T.accent,fontFamily:T.fontDisplay,letterSpacing:1}}>SOLARE</div><div style={{fontSize:10,color:T.textMuted,fontFamily:T.font,marginTop:4}}>Your private sneaker universe</div><div style={{fontSize:9,color:T.textMuted,fontFamily:T.font,marginTop:8}}>v1.0.0 · [12:12]</div></div>
       </FI>
 
       {/* Delete Account Modal */}
@@ -1200,104 +1200,22 @@ function BNav({active,setActive}){
 //  SPLASH SCREEN
 // ═══════════════════════════════════════════
 function SplashScreen({onDone}){
-  const[phase,sPhase]=useState(0);
-  // phase 0: black screen (0-400ms)
-  // phase 1: green sunrise band appears at center, thin (400-1000ms) — frame 2
-  // phase 2: green band expands upward to fill top half (1000-1600ms) — frame 3
-  // phase 3: S starts emerging from horizon, small elliptical shape (1600-2000ms) — frame 4
-  // phase 4: S scales up to full size with split effect (2000-2800ms) — frame 5→6
-  // phase 5: hold final + SOLAR text (2800-3400ms)
-  // phase 6: fade out (3400-3800ms)
+  const[fadeOut,sFadeOut]=useState(false);
+  const vidRef=useRef(null);
   useEffect(()=>{
-    const timers=[
-      setTimeout(()=>sPhase(1),400),
-      setTimeout(()=>sPhase(2),1000),
-      setTimeout(()=>sPhase(3),1600),
-      setTimeout(()=>sPhase(4),2000),
-      setTimeout(()=>sPhase(5),2800),
-      setTimeout(()=>sPhase(6),3400),
-      setTimeout(()=>onDone(),3800),
-    ];
-    return()=>timers.forEach(clearTimeout);
+    // Fallback if video doesn't load — skip after 5s
+    const fallback=setTimeout(()=>{sFadeOut(true);setTimeout(onDone,500);},5000);
+    return()=>clearTimeout(fallback);
   },[]);
-
-  // Green band height: 0 → thin strip → full top half
-  const bandHeight = phase===0?0:phase===1?8:phase>=2?50:0;
-  // Band top position (centered → top aligned)
-  const bandTop = phase===0?50:phase===1?46:phase>=2?0:50;
-  // S scale: 0 → small → full
-  const sScale = phase<3?0:phase===3?0.3:phase>=4?1:0;
-  // S opacity
-  const sOpacity = phase<3?0:phase===3?0.6:phase>=4?1:0;
-
+  const handleEnd=()=>{sFadeOut(true);setTimeout(onDone,500);};
+  const handleCanPlay=()=>{try{vidRef.current?.play();}catch(e){}};
   return(
-    <div style={{position:"fixed",inset:0,zIndex:9999,background:T.bg,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",opacity:phase>=6?0:1,transition:"opacity 0.4s ease"}}>
-
-      {/* Main icon container */}
-      <div style={{width:160,height:160,borderRadius:36,overflow:"hidden",position:"relative"}}>
-
-        {/* Black base */}
-        <div style={{position:"absolute",inset:0,background:T.bg}}/>
-
-        {/* Green sunrise band — grows from center strip to full top half */}
-        <div style={{
-          position:"absolute",
-          left:0,width:"100%",
-          top:`${bandTop}%`,
-          height:`${bandHeight}%`,
-          background:T.accent,
-          borderRadius:phase===1?"50%/100%":"0",
-          transition:phase===0?"none":phase===1?"all 0.6s cubic-bezier(0.22,1,0.36,1)":"all 0.6s cubic-bezier(0.22,1,0.36,1)",
-        }}/>
-
-        {/* S letter — emerges from horizon and scales up */}
-        <div style={{
-          position:"absolute",inset:0,
-          display:"flex",alignItems:"center",justifyContent:"center",
-          transform:`scale(${sScale})`,
-          opacity:sOpacity,
-          transition:phase<3?"none":"all 0.8s cubic-bezier(0.22,1,0.36,1)",
-        }}>
-          <svg width="160" height="160" viewBox="0 0 160 160">
-            <defs>
-              <clipPath id="spTop"><rect x="0" y="0" width="160" height="80"/></clipPath>
-              <clipPath id="spBot"><rect x="0" y="80" width="160" height="80"/></clipPath>
-            </defs>
-            {/* S black on green (top half) */}
-            <g clipPath="url(#spTop)">
-              <text x="80" y="126" textAnchor="middle" fontFamily="'Outfit', 'Arial Black', sans-serif" fontSize="155" fontWeight="900" fill={T.bg}>S</text>
-            </g>
-            {/* S green on black (bottom half) */}
-            <g clipPath="url(#spBot)">
-              <text x="80" y="126" textAnchor="middle" fontFamily="'Outfit', 'Arial Black', sans-serif" fontSize="155" fontWeight="900" fill={T.accent}>S</text>
-            </g>
-          </svg>
-        </div>
-
-        {/* Horizon line — subtle separator */}
-        <div style={{
-          position:"absolute",top:"50%",left:0,width:"100%",height:2,
-          background:T.bg,
-          transform:phase>=2?"scaleX(1)":"scaleX(0)",
-          transition:"transform 0.5s cubic-bezier(0.22,1,0.36,1)",
-          transformOrigin:"center",zIndex:2,
-          opacity:phase>=4?1:0,
-        }}/>
-      </div>
-
-      {/* SOLAR text + tagline */}
-      <div style={{marginTop:28,opacity:phase>=5?1:0,transform:phase>=5?"translateY(0)":"translateY(20px)",transition:"all 0.6s cubic-bezier(0.22,1,0.36,1)"}}>
-        <div style={{fontSize:26,fontWeight:800,color:T.text,fontFamily:T.fontDisplay,letterSpacing:8,textAlign:"center"}}>SOLAR</div>
-        <div style={{fontSize:11,color:T.textMuted,fontFamily:T.font,textAlign:"center",marginTop:8,letterSpacing:2}}>Your private sneaker universe</div>
-      </div>
-
-      {/* Loading bar */}
-      <div style={{position:"absolute",bottom:80,width:140,height:2,borderRadius:1,background:"rgba(255,255,255,0.06)",overflow:"hidden",opacity:phase>=5?1:0,transition:"opacity 0.3s ease"}}>
-        <div style={{height:"100%",borderRadius:1,background:T.accent,width:phase>=5?"100%":"0%",transition:"width 0.8s cubic-bezier(0.22,1,0.36,1)"}}/>
-      </div>
-
-      {/* Publisher */}
-      <div style={{position:"absolute",bottom:44,fontSize:10,color:T.textMuted,fontFamily:T.font,letterSpacing:1.5,opacity:phase>=5?0.4:0,transition:"opacity 0.5s ease"}}>[12:12]</div>
+    <div style={{position:"fixed",inset:0,zIndex:9999,background:"#000",display:"flex",alignItems:"center",justifyContent:"center",opacity:fadeOut?0:1,transition:"opacity 0.5s ease"}}>
+      <video ref={vidRef} onEnded={handleEnd} onCanPlay={handleCanPlay} autoPlay muted playsInline
+        style={{width:"100%",height:"100%",objectFit:"cover"}}
+        src="SOLARE_intro.mp4"/>
+      {/* Tap to skip */}
+      <div onClick={handleEnd} style={{position:"absolute",bottom:40,fontSize:11,color:"rgba(255,255,255,0.25)",fontFamily:T.font,letterSpacing:1,cursor:"pointer"}}>Tap to skip</div>
     </div>
   );
 }
@@ -1348,7 +1266,7 @@ function AuthScreen({onAuth}){
           </svg>
         </div>
 
-        <div style={{fontSize:32,fontWeight:800,color:T.text,fontFamily:T.fontDisplay,letterSpacing:-0.5}}>SOLAR</div>
+        <div style={{fontSize:32,fontWeight:800,color:T.text,fontFamily:T.fontDisplay,letterSpacing:-0.5}}>SOLARE</div>
         <div style={{fontSize:13,color:T.textSecondary,fontFamily:T.font,marginTop:8,lineHeight:1.5}}>Your private sneaker universe</div>
 
         <div style={{marginTop:48,width:"100%"}}>
@@ -1391,7 +1309,7 @@ function AuthScreen({onAuth}){
         </button>
 
         <div style={{fontSize:28,fontWeight:800,color:T.text,fontFamily:T.fontDisplay,letterSpacing:-0.5}}>{isLogin?"Welcome back":"Create account"}</div>
-        <div style={{fontSize:13,color:T.textSecondary,fontFamily:T.font,marginTop:6,marginBottom:32}}>{isLogin?"Log in to your SOLAR account":"Join the sneaker universe"}</div>
+        <div style={{fontSize:13,color:T.textSecondary,fontFamily:T.font,marginTop:6,marginBottom:32}}>{isLogin?"Log in to your SOLARE account":"Join the sneaker universe"}</div>
 
         {/* Social login buttons */}
         {socialBtn(googleIcon,"Continue with Google","#ffffff","#333","#ddd")}
